@@ -1,0 +1,387 @@
+/* 全局 */
+html, body {
+    overflow-x: hidden;
+}
+
+html body {
+    margin-top: 61px;
+}
+
+html {
+    background-color: #F2F2F2;
+}
+
+i {
+    font-style: normal;
+}
+
+a:hover {
+    color: #009688;
+    transition: all .3s;
+}
+
+pre {
+    padding: 10px 15px;
+    margin: 10px 0;
+    font-size: 12px;
+    border-left: 6px solid #009688;
+    background-color: #f8f8f8;
+    font-family: Courier New;
+    overflow: auto;
+}
+
+.layui-container {
+    padding: 0;
+}
+
+.layui-badge {
+    height: 20px;
+    line-height: 20px;
+    border-radius: 2px;
+}
+
+
+.fly-marginTop {
+    margin-top: 15px;
+}
+
+.fly-mid {
+    display: inline-block;
+    height: 10px;
+    width: 1px;
+    margin: 0 10px;
+    vertical-align: middle;
+    background-color: #e2e2e2;
+}
+
+/* 徽章 */
+.fly-badge-default {
+    height: 18px;
+    line-height: 18px;
+    padding: 0 5px !important;
+    background-color: #FF5722;
+    border-radius: 2px;
+}
+
+.fly-badge-accept {
+    height: 18px;
+    line-height: 18px;
+    padding: 0 5px !important;
+    background-color: #5FB878;
+    border-radius: 2px;
+}
+
+.fly-badge-unaccept {
+    height: 18px;
+    line-height: 18px;
+    padding: 0 5px !important;
+    background-color: #999;
+    border-radius: 2px;
+}
+
+
+/* 头部 */
+.fly-header {
+    position: fixed;
+    left: 0;
+    top: 0;
+    z-index: 10000;
+    width: 100%;
+    height: 60px;
+    border-bottom: 1px solid #404553;
+    border-right: 1px solid #404553;
+    border-radius: 0;
+}
+
+.fly-nav a i {
+    position: absolute;
+    left: 25px;
+    top: 0;
+    padding-right: 10px;
+    font-size: 26px;
+}
+
+.fly-nav-msg:hover {
+    color: #fff;
+}
+
+.fly-header .layui-nav {
+    padding: 0;
+    background: none;
+}
+
+.fly-header .fly-nav-user li a {
+    padding: 0 10px;
+}
+
+.fly-header .fly-nav-user li .fly-nav-avatar {
+    padding-right: 0;
+}
+
+.fly-header .fly-nav-user a.iconfont {
+    color: #A9B7B7;
+}
+
+.fly-header > .layui-nav-item a {
+    color: rgba(255, 255, 255, 0.5);
+}
+
+.fly-header .layui-this a {
+    color: #fff;
+}
+
+.fly-header .layui-nav .layui-this:after,
+.fly-header .layui-nav .layui-nav-bar,
+.fly-header .fly-nav-user .layui-nav-more {
+    display: none !important;
+}
+
+.fly-header .fly-nav-user .layui-nav-child {
+    left: auto;
+    right: 0;
+    width: 120px;
+    min-width: 0;
+}
+
+/* 面板 */
+.fly-panel {
+    margin-bottom: 15px;
+    border-radius: 2px;
+    background-color: #fff;
+    box-shadow: 0 1px 2px 0 rgba(0, 0, 0, .05);
+}
+
+.fly-panel[pad20] {
+    padding: 20px;
+}
+
+.fly-panel-title {
+    position: relative;
+    height: 50px;
+    line-height: 50px;
+    padding: 0 15px;
+    border-bottom: 1px dotted #E9E9E9;
+    color: #333;
+    border-radius: 2px 2px 0 0;
+    font-size: 14px;
+}
+
+.fly-panel-main {
+    padding: 10px 15px;
+}
+
+
+/* 列表 */
+.fly-list li {
+    position: relative;
+    height: 45px;
+    line-height: 22px;
+    padding: 15px 15px 15px 15px;
+    border-bottom: 1px dotted #e2e2e2;
+}
+
+.fly-list li:last-child {
+    border-bottom: none;
+}
+
+.fly-list li h2,
+.fly-list li h2 a,
+.fly-list-info {
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+.fly-list li h2 {
+    height: 26px;
+    font-size: 0;
+}
+
+.fly-list li h2 a {
+    display: inline-block;
+    max-width: 80%;
+    padding-right: 10px;
+    font-size: 16px;
+}
+
+.fly-list li h2 .layui-badge {
+    top: -2px;
+    height: 16px;
+    line-height: 16px;
+    padding: 0 5px;
+    margin-right: 10px;
+    font-size: 12px;
+    border: 1px solid #5FB878;
+    background: none;
+    color: #5FB878;
+}
+
+.fly-list-info {
+    position: relative;
+    font-size: 13px;
+    color: #999;
+}
+
+.fly-list-info > * {
+    padding-right: 15px;
+}
+
+.fly-list-info a[link] {
+    color: #999;
+}
+
+.fly-list-info a[link]:hover {
+    color: #5FB878;
+}
+
+.fly-list-info .icon-renzheng {
+    position: relative;
+    top: 1px;
+    margin-right: 3px;
+}
+
+.fly-list-info .fly-badge-vip {
+    position: relative;
+    margin-left: 2px;
+}
+
+.fly-list-kiss {
+    color: #FF5722;
+}
+
+.fly-list-nums {
+    position: absolute;
+    right: 0;
+    top: 0;
+    padding-right: 0 !important;
+}
+
+.fly-list-nums i {
+    position: relative;
+    padding: 0 3px 0 15px;
+}
+
+.fly-list-badge {
+    position: absolute;
+    right: 15px;
+    top: 15px;
+    font-size: 0;
+}
+
+.fly-list-badge .layui-badge {
+    margin-left: 5px;
+    border-radius: 2px;
+    font-size: 12px;
+}
+
+/* 单行列表 */
+.fly-list-one .fly-panel-title {
+    margin-bottom: 5px;
+}
+
+.fly-list-one dd {
+    margin: 0 15px;
+    line-height: 26px;
+    white-space: nowrap;
+    overflow: hidden;
+    list-style: decimal-leading-zero inside;
+    *list-style-type: decimal inside;
+    color: #009E94;
+}
+
+.fly-list-one dd a,
+.fly-list-one dd span {
+    display: inline-block;
+    *display: inline;
+    *zoom: 1;
+    vertical-align: top;
+    font-style: normal
+}
+
+.fly-list-one dd a {
+    max-width: 85%;
+    margin-right: 5px;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    font-size: 14px;
+}
+
+.fly-list-one dd span {
+    font-size: 12px;
+    color: #ccc;
+}
+
+.fly-list-one dd:last-child {
+    padding-bottom: 5px;
+}
+
+/* Detail页 */
+.detail-box {
+    padding: 10px 20px;
+}
+
+.detail h1 {
+    font-size: 24px;
+    line-height: 36px;
+}
+
+.fly-detail-info {
+    position: relative;
+    margin: 10px 0 15px;
+}
+
+.fly-detail-info .layui-btn {
+    height: 20px;
+    line-height: 20px;
+    vertical-align: top;
+    border-radius: 0;
+}
+
+.fly-detail-info .layui-btn + .layui-btn {
+    margin-left: 0;
+}
+
+.detail-body {
+    margin: 20px 0 0;
+    line-height: 26px;
+    font-size: 16px;
+    color: #333;
+    word-wrap: break-word;
+}
+
+.detail-body p {
+    margin-bottom: 15px;
+}
+
+.detail-body a {
+    color: #4f99cf;
+}
+
+.detail-body img {
+    max-width: 100%;
+    cursor: crosshair;
+}
+
+.detail-body table {
+    margin: 10px 0 15px;
+}
+
+.detail-body table thead {
+    background-color: #f2f2f2;
+}
+
+.detail-body table th,
+.detail-body table td {
+    padding: 10px 20px;
+    line-height: 22px;
+    border: 1px solid #DFDFDF;
+    font-size: 14px;
+    font-weight: 400;
+}
+
+
+/* 发帖 */
+.layui-form-item.layui-col-space15 {
+    margin-bottom: 7.5px;
+}

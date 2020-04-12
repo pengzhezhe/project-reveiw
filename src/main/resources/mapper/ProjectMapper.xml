@@ -1,0 +1,119 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.pzz.review.mapper.ProjectMapper">
+    <resultMap id="ProjectMap" type="com.pzz.review.domain.Project">
+        <id column="id" jdbcType="INTEGER" property="id"/>
+        <result column="name" jdbcType="VARCHAR" property="name"/>
+        <result column="introduction" jdbcType="VARCHAR" property="introduction"/>
+        <result column="user_name" jdbcType="VARCHAR" property="userName"/>
+        <result column="user_id" jdbcType="INTEGER" property="userId"/>
+        <result column="status" jdbcType="INTEGER" property="status"/>
+        <result column="create_time" jdbcType="TIMESTAMP" property="createTime"/>
+        <result column="update_time" jdbcType="TIMESTAMP" property="updateTime"/>
+    </resultMap>
+    <delete id="delete" parameterType="java.lang.Integer">
+        delete
+        from project
+        where id = #{id,jdbcType=INTEGER}
+    </delete>
+    <insert id="insert" parameterType="com.pzz.review.domain.Project" useGeneratedKeys="true" keyProperty="id">
+        insert into project (name, introduction,
+                             user_name, user_id, status, create_time,
+                             update_time)
+        values (#{name,jdbcType=VARCHAR}, #{introduction,jdbcType=VARCHAR},
+                #{userName,jdbcType=VARCHAR}, #{userId,jdbcType=INTEGER},
+                #{status,jdbcType=INTEGER}, #{createTime,jdbcType=TIMESTAMP},
+                #{updateTime,jdbcType=TIMESTAMP})
+    </insert>
+    <update id="update" parameterType="com.pzz.review.domain.Project">
+        update project
+        set name         = #{name,jdbcType=VARCHAR},
+            introduction = #{introduction,jdbcType=VARCHAR},
+            user_name    = #{userName,jdbcType=VARCHAR},
+            user_id      = #{userId,jdbcType=INTEGER},
+            status       = #{status,jdbcType=INTEGER},
+            create_time  = #{createTime,jdbcType=TIMESTAMP},
+            update_time  = #{updateTime,jdbcType=TIMESTAMP}
+        where id = #{id,jdbcType=INTEGER}
+    </update>
+    <select id="getProject" parameterType="java.lang.Integer" resultMap="ProjectMap">
+        select id,
+               name,
+               introduction,
+               user_name,
+               user_id,
+               status,
+               create_time,
+               update_time
+        from project
+        where id = #{id,jdbcType=INTEGER}
+    </select>
+    <select id="listProjectsByUserId" resultMap="ProjectMap">
+        select id,
+               name,
+               introduction,
+               user_name,
+               user_id,
+               status,
+               create_time,
+               update_time
+        from project
+        where user_id = #{userId,jdbcType=INTEGER}
+        order by create_time desc
+    </select>
+
+    <select id="listCheckedProjectsByUserId" resultMap="ProjectMap">
+        select id,
+               name,
+               introduction,
+               user_name,
+               user_id,
+               status,
+               create_time,
+               update_time
+        from project
+        where user_id = #{userId,jdbcType=INTEGER}
+          and (status = 1 or status = 2)
+        order by create_time desc
+    </select>
+
+    <select id="listProjects" resultMap="ProjectMap">
+        select id,
+               name,
+               introduction,
+               user_name,
+               user_id,
+               status,
+               create_time,
+               update_time
+        from project
+        order by create_time desc
+    </select>
+    <select id="listProjectsByStatus" resultMap="ProjectMap">
+        select id,
+               name,
+               introduction,
+               user_name,
+               user_id,
+               status,
+               create_time,
+               update_time
+        from project
+        where status = #{status,jdbcType=INTEGER}
+        order by create_time desc
+    </select>
+    <select id="listProjectsByUserIdAndStatus" resultMap="ProjectMap">
+        select id,
+               name,
+               introduction,
+               user_name,
+               user_id,
+               status,
+               create_time,
+               update_time
+        from project
+        where user_id = #{userId,jdbcType=INTEGER}
+          and status = #{status,jdbcType=INTEGER}
+        order by create_time desc
+    </select>
+</mapper>

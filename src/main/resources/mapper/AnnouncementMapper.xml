@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.pzz.review.mapper.AnnouncementMapper">
+    <resultMap id="BaseResultMap" type="com.pzz.review.domain.Announcement">
+        <id column="id" jdbcType="INTEGER" property="id"/>
+        <result column="title" jdbcType="VARCHAR" property="title"/>
+        <result column="content" jdbcType="VARCHAR" property="content"/>
+        <result column="create_time" jdbcType="TIMESTAMP" property="createTime"/>
+        <result column="update_time" jdbcType="TIMESTAMP" property="updateTime"/>
+    </resultMap>
+    <delete id="delete" parameterType="java.lang.Integer">
+        delete
+        from announcement
+        where id = #{id,jdbcType=INTEGER}
+    </delete>
+    <insert id="insert" parameterType="com.pzz.review.domain.Announcement">
+        insert into announcement (title, content, create_time,
+                                  update_time)
+        values (#{title,jdbcType=VARCHAR}, #{content,jdbcType=VARCHAR},
+                #{userName,jdbcType=VARCHAR}, #{userId,jdbcType=INTEGER}, #{createTime,jdbcType=TIMESTAMP},
+                #{updateTime,jdbcType=TIMESTAMP})
+    </insert>
+    <update id="update" parameterType="com.pzz.review.domain.Announcement">
+        update announcement
+        set title       = #{title,jdbcType=VARCHAR},
+            content     = #{content,jdbcType=VARCHAR},
+            create_time = #{createTime,jdbcType=TIMESTAMP},
+            update_time = #{updateTime,jdbcType=TIMESTAMP}
+        where id = #{id,jdbcType=INTEGER}
+    </update>
+    <select id="getAnnouncement" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+        select id, title, content, create_time, update_time
+        from announcement
+        where id = #{id,jdbcType=INTEGER}
+    </select>
+    <select id="listAnnouncements" resultMap="BaseResultMap">
+        select id, title, content, create_time, update_time
+        from announcement
+        order by create_time desc
+    </select>
+    <select id="listNewAnnouncements" resultMap="BaseResultMap">
+        select id, title, content, create_time, update_time
+        from announcement
+        order by create_time desc
+        limit 8
+    </select>
+</mapper>

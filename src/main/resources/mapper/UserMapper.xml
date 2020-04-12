@@ -1,0 +1,80 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.pzz.review.mapper.UserMapper">
+    <resultMap id="UserMap" type="com.pzz.review.domain.User">
+        <id column="id" jdbcType="INTEGER" property="id"/>
+        <result column="username" jdbcType="VARCHAR" property="username"/>
+        <result column="password" jdbcType="VARCHAR" property="password"/>
+        <result column="name" jdbcType="VARCHAR" property="name"/>
+        <result column="sex" jdbcType="INTEGER" property="sex"/>
+        <result column="email" jdbcType="VARCHAR" property="email"/>
+        <result column="user_type" jdbcType="INTEGER" property="userType"/>
+        <result column="create_time" jdbcType="TIMESTAMP" property="createTime"/>
+        <result column="update_time" jdbcType="TIMESTAMP" property="updateTime"/>
+    </resultMap>
+    <delete id="delete" parameterType="java.lang.Integer">
+        delete
+        from user
+        where id = #{id,jdbcType=INTEGER}
+    </delete>
+    <insert id="insert" parameterType="com.pzz.review.domain.User">
+        insert into user (username, password,
+                          name, sex, email, user_type, create_time,
+                          update_time)
+        values (#{username,jdbcType=VARCHAR}, #{password,jdbcType=VARCHAR},
+                #{name,jdbcType=VARCHAR}, #{sex,jdbcType=INTEGER}, #{email,jdbcType=VARCHAR},
+                #{userType,jdbcType=INTEGER}, #{createTime,jdbcType=TIMESTAMP},
+                #{updateTime,jdbcType=TIMESTAMP})
+    </insert>
+    <update id="update" parameterType="com.pzz.review.domain.User">
+        update user
+        set username  = #{username,jdbcType=VARCHAR},
+            password  = #{password,jdbcType=VARCHAR},
+            name      = #{name,jdbcType=VARCHAR},
+            sex       = #{sex,jdbcType=INTEGER},
+            email     = #{email,jdbcType=VARCHAR},
+            user_type = #{userType,jdbcType=INTEGER}
+        where id = #{id,jdbcType=INTEGER}
+    </update>
+    <select id="getUser" parameterType="java.lang.Integer" resultMap="UserMap">
+        select id,
+               username,
+               password,
+               name,
+               sex,
+               email,
+               user_type,
+               create_time,
+               update_time
+        from user
+        where id = #{id,jdbcType=INTEGER}
+    </select>
+    <select id="getUserByUsername" resultMap="UserMap">
+        select id,
+               username,
+               password,
+               name,
+               sex,
+               email,
+               user_type,
+               create_time,
+               update_time
+        from user
+        where username = #{username,jdbcType=VARCHAR}
+    </select>
+
+    <select id="listUsers" resultMap="UserMap">
+        select id,
+               username,
+               password,
+               name,
+               sex,
+               email,
+               user_type,
+               create_time,
+               update_time
+        from user
+        where user_type = #{userType,jdbcType=INTEGER}
+    </select>
+
+</mapper>

@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.pzz.review.mapper.AttachmentMapper">
+    <resultMap id="BaseResultMap" type="com.pzz.review.domain.Attachment">
+        <id column="id" jdbcType="INTEGER" property="id"/>
+        <result column="project_id" jdbcType="INTEGER" property="projectId"/>
+        <result column="filename" jdbcType="VARCHAR" property="filename"/>
+        <result column="original_name" jdbcType="VARCHAR" property="originalName"/>
+        <result column="create_time" jdbcType="TIMESTAMP" property="createTime"/>
+        <result column="update_time" jdbcType="TIMESTAMP" property="updateTime"/>
+    </resultMap>
+    <delete id="delete" parameterType="java.lang.Integer">
+        delete
+        from attachment
+        where id = #{id,jdbcType=INTEGER}
+    </delete>
+    <insert id="insert" parameterType="com.pzz.review.domain.Attachment" >
+        insert into attachment (project_id, filename,
+                                original_name, create_time, update_time)
+        values (#{projectId,jdbcType=INTEGER}, #{filename,jdbcType=VARCHAR},
+                #{originalName,jdbcType=VARCHAR}, #{createTime,jdbcType=TIMESTAMP}, #{updateTime,jdbcType=TIMESTAMP})
+    </insert>
+    <update id="update" parameterType="com.pzz.review.domain.Attachment">
+        update attachment
+        set project_id    = #{projectId,jdbcType=INTEGER},
+            filename      = #{filename,jdbcType=VARCHAR},
+            original_name = #{originalName,jdbcType=VARCHAR},
+            create_time   = #{createTime,jdbcType=TIMESTAMP},
+            update_time   = #{updateTime,jdbcType=TIMESTAMP}
+        where id = #{id,jdbcType=INTEGER}
+    </update>
+    <select id="getAttachment" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+        select id, project_id, filename, original_name, create_time, update_time
+        from attachment
+        where id = #{id,jdbcType=INTEGER}
+    </select>
+    <select id="listAttachments" resultMap="BaseResultMap">
+        select id, project_id, filename, original_name, create_time, update_time
+        from attachment
+        order by create_time desc
+    </select>
+    <select id="listAttachmentsByProjectId" resultMap="BaseResultMap">
+        select id, project_id, filename, original_name, create_time, update_time
+        from attachment
+        where project_id = #{projectId,jdbcType=INTEGER}
+        order by create_time desc
+    </select>
+</mapper>
