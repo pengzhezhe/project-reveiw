@@ -40,7 +40,7 @@ public class AnnouncementController {
     @GetMapping("/announcement/{id}")
     public String announcementDetailView(Model model, @PathVariable("id") Integer id) {
         Announcement announcement = announcementService.getAnnouncementById(id);
-        List<Announcement> announcements = announcementService.listAnnouncements();
+        List<Announcement> announcements = announcementService.listNewAnnouncements();
         model.addAttribute("announcement", announcement);
         model.addAttribute("announcements", announcements);
         return "announcement/detail";

@@ -18,7 +18,7 @@
             <div class="layui-carousel" id="stepForm" lay-filter="stepForm" style="margin-top: 30px;overflow: hidden">
                 <div carousel-item>
                     <div>
-                        <form class="layui-form" style="margin: 0 auto;max-width: 50%;padding-top: 40px;">
+                        <form class="layui-form" style="margin: 0 auto;max-width: 80%;padding-top: 40px;">
                             <div class="layui-form-item">
                                 <label class="layui-form-label">项目名</label>
                                 <div class="layui-input-block">
@@ -29,7 +29,8 @@
                             <div class="layui-form-item layui-form-text">
                                 <label class="layui-form-label">项目简介</label>
                                 <div class="layui-input-block">
-                                    <textarea name="introduction" placeholder="请输入内容" class="layui-textarea"></textarea>
+                                    <textarea name="introduction" id="introduction" placeholder="请输入内容"
+                                              style="display: none"></textarea>
                                 </div>
                             </div>
                             <div class="layui-form-item">
@@ -64,7 +65,7 @@
                             </div>
                         </div>
                         <div style="text-align: center;margin-top: 50px;">
-                            <button class="layui-btn layui-btn-primary">返回</button>
+                            <button class="layui-btn layui-btn-primary" id="back">返回</button>
                         </div>
                     </div>
                 </div>
@@ -77,19 +78,20 @@
 <script src="/step-lay/step.js"></script>
 
 <script>
-    layui.config({base: '/step-lay/'}).use(['form', 'step', 'layer', 'element', 'upload'], function () {
+    layui.config({base: '/step-lay/'}).use(['form', 'layedit', 'step', 'layer', 'element', 'upload'], function () {
         var $ = layui.$;
         var form = layui.form;
         var step = layui.step;
         var layer = layui.layer;
         var upload = layui.upload;
+        var layedit = layui.layedit;
         var element = layui.element;
         step.render({
             elem: '#stepForm',
             filter: 'stepForm',
             width: '100%', //设置容器宽度
             stepWidth: '100%',
-            height: '500px',
+            height: '600px',
             stepItems: [{
                 title: '填写项目信息'
             }, {
@@ -99,7 +101,11 @@
             }]
         });
 
+        var contentIndex = layedit.build('introduction'); //建立编辑器
+
         form.on('submit(formDemo)', function (data) {
+            data.field.introduction = layedit.getContent(contentIndex);
+            console.log(data.field);
             $.ajax({
                 url: "/project/add",
                 method: "POST",
@@ -107,7 +113,6 @@
                 dataType: "json",
                 data: JSON.stringify(data.field),
                 success: function (response) {
-                    console.log(response);
                     if (response.code === 1) {
                         $('#projectId').val(response.data);
                         step.next('#stepForm');
@@ -140,8 +145,7 @@
             return false;
         });
 
-        $('.back').click(function () {
-            var projectId = $('#projectId').val();
+        $('#back').click(function () {
             window.location.href = "/project"
         });
     })

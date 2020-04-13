@@ -20,12 +20,13 @@
                     <span class="layui-badge">管理员</span>
                     <span style="font-size: small;color:#999;padding-left: 15px;">${announcement.createTime?string("yyyy-MM-dd HH:mm:ss")}</span>
                 </div>
-                <div class="detail-body">
+                <hr class="layui-bg-gray">
+                <div class="detail-body" style="min-height: 300px">
                     <p>
                         ${announcement.content}
                     </p>
-                    <hr class="layui-bg-gray">
                 </div>
+                <hr class="layui-bg-gray">
             </div>
         </div>
         <#include "/common/announcement.ftl">

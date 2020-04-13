@@ -26,15 +26,17 @@
                     </#if>
                     <span style="font-size: small;color:#999;padding-left: 15px;">${project.createTime?string("yyyy-MM-dd HH:mm:ss")}</span>
                 </div>
+                <hr class="layui-bg-gray">
                 <div class="detail-body">
-                    <p>${project.introduction}</p>
-                    <hr class="layui-bg-gray">
-                    <#list attachments as attachment>
-                        <a href="/attachment/download/${attachment.id}"
-                           style="font-size: small;">${attachment.originalName}</a>
-                        <br>
-                    </#list>
-                    <br>
+                    <div style="min-height:200px">${project.introduction}</div>
+                    <div class="layui-row">
+                        <hr class="layui-bg-gray">
+                        <#list attachments as attachment>
+                            <a href="/attachment/download/${attachment.id}"
+                               style="font-size: small;">${attachment.originalName}</a>
+                            <br>
+                        </#list>
+                    </div>
                 </div>
             </div>
 
@@ -43,7 +45,9 @@
                     <legend style="text-align: center">评审意见</legend>
                     <#if project.status!=0>
                         <div class="layui-field-box">
-                            <p>${project.opinion}</p>
+                            <blockquote class="layui-elem-quote">
+                                <p>${project.opinion}</p>
+                            </blockquote>
                             <div class="fly-list-info" style="padding-top: 10px;font-size: smaller;">
                                 <cite style="color: #1E9FFF;">管理员</cite>
                                 <span class="detail-hits">${project.reviewTime?string("yyyy-MM-dd HH:mm:ss")}</span>

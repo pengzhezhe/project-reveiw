@@ -21,34 +21,40 @@
                         <li <#if index==1>class="layui-this"</#if>>全部</li>
                     </ul>
                     <div class="layui-tab-content">
-                        <div class="layui-tab-item layui-show">
-                            <ul class="fly-list">
-                                <#list announcements as announcement>
-                                    <li>
-                                        <h2>
-                                            <a href="/announcement/${announcement.id}">${announcement.title}</a>
-                                        </h2>
-                                        <div class="fly-list-info">
-                                            <span>${announcement.createTime?string("yyyy-MM-dd HH:mm:ss")}</span>
-                                        </div>
-                                    </li>
-                                </#list>
-                            </ul>
-                        </div>
-                        <div class="layui-tab-item">
-                            <ul class="fly-list">
-                                <#list announcements as announcement>
-                                    <li>
-                                        <h2>
-                                            <a href="/announcement/${announcement.id}">${announcement.title}</a>
-                                        </h2>
-                                        <div class="fly-list-info">
-                                            <span>${announcement.createTime?string("yyyy-MM-dd HH:mm:ss")}</span>
-                                        </div>
-                                    </li>
-                                </#list>
-                            </ul>
-                        </div>
+                        <#if index==0>
+                            <div class="layui-tab-item layui-show">
+                                <ul class="fly-list">
+                                    <#list announcements as announcement>
+                                        <li>
+                                            <h2>
+                                                <a href="/announcement/${announcement.id}">${announcement.title}</a>
+                                            </h2>
+                                            <div class="fly-list-info">
+                                                <span>${announcement.createTime?string("yyyy-MM-dd HH:mm:ss")}</span>
+                                            </div>
+                                        </li>
+                                    </#list>
+                                </ul>
+                            </div>
+                            <div class="layui-tab-item"></div>
+                        </#if>
+                        <#if index==1>
+                            <div class="layui-tab-item"></div>
+                            <div class="layui-tab-item layui-show">
+                                <ul class="fly-list">
+                                    <#list announcements as announcement>
+                                        <li>
+                                            <h2>
+                                                <a href="/announcement/${announcement.id}">${announcement.title}</a>
+                                            </h2>
+                                            <div class="fly-list-info">
+                                                <span>${announcement.createTime?string("yyyy-MM-dd HH:mm:ss")}</span>
+                                            </div>
+                                        </li>
+                                    </#list>
+                                </ul>
+                            </div>
+                        </#if>
                     </div>
                 </div>
             </div>

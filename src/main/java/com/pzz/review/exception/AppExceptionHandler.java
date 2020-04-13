@@ -14,10 +14,5 @@ public class AppExceptionHandler {
     public ResponseDTO<String> handleAppException(AppException e) {
         return new ResponseDTO<>(0, e.getMessage(), null);
     }
-
-//    @ExceptionHandler(Exception.class)
-//    @ResponseBody
-//    public ResponseDTO<String> handleUnknownException(Exception e) {
-//        return new ResponseDTO<>(-99, e.getMessage(), null);
-//    }
+    
 }

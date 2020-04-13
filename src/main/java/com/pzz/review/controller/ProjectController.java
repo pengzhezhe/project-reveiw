@@ -37,7 +37,7 @@ public class ProjectController {
     private UserService userService;
 
     @GetMapping("/project")
-    public String project(@RequestParam(defaultValue = "1", name = "page") int pageNum, @RequestParam(defaultValue = "9",name = "limit") int pageSize, @RequestParam(defaultValue = "0") int type, HttpSession httpSession, Model model) {
+    public String project(@RequestParam(defaultValue = "1", name = "page") int pageNum, @RequestParam(defaultValue = "9", name = "limit") int pageSize, @RequestParam(defaultValue = "0") int type, HttpSession httpSession, Model model) {
         if (type > 2)
             throw new AppException("type invalid");
         String username = (String) httpSession.getAttribute("username");
@@ -45,7 +45,7 @@ public class ProjectController {
         PageHelper.startPage(pageNum, pageSize);
         List<Project> projects = projectService.listProjectsByUserIdAndStatus(userId, type);
         PageInfo pageInfo = new PageInfo(projects);
-        List<Announcement> announcements = announcementService.listAnnouncements();
+        List<Announcement> announcements = announcementService.listNewAnnouncements();
         model.addAttribute("projects", projects);
         model.addAttribute("announcements", announcements);
         model.addAttribute("page", pageInfo);
@@ -71,17 +71,14 @@ public class ProjectController {
         project.setUserId(user.getId());
         project.setUserName(user.getName());
         project.setStatus(0);
-        int projectId = projectService.addProject(project);
-        if (projectId > 0)
-            return new ResponseDTO<>(1, "添加成功", projectId);
-        else
-            throw new AppException("添加失败");
+        projectService.addProject(project);
+        return new ResponseDTO<>(1, "添加成功", project.getId());
     }
 
     @GetMapping("/project/{id}")
     public String projectDetail(@PathVariable("id") Integer id, Model model) {
         ProjectDetailDTO projectDetail = projectService.getProjectDetail(id);
-        List<Announcement> announcements = announcementService.listAnnouncements();
+        List<Announcement> announcements = announcementService.listNewAnnouncements();
         List<Attachment> attachments = attachmentService.listAttachment(id);
         model.addAttribute("project", projectDetail);
         model.addAttribute("announcements", announcements);
