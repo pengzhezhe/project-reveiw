@@ -24,10 +24,6 @@ public class UserServiceImpl implements UserService {
         return true;
     }
 
-    @Override
-    public boolean register(User user) {
-        return false;
-    }
 
     @Override
     public boolean addUser(User user) {

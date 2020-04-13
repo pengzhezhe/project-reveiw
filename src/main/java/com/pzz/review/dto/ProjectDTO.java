@@ -2,6 +2,9 @@ package com.pzz.review.dto;
 
 import lombok.Data;
 
+/**
+ *
+ */
 @Data
 public class ProjectDTO {
     private String name;

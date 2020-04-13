@@ -18,6 +18,15 @@ public class AnnouncementController {
     @Autowired
     private AnnouncementService announcementService;
 
+    /**
+     * 公告页面
+     *
+     * @param pageNum  页数
+     * @param pageSize 每页显示数量
+     * @param type     公告类别 0=最新，1=全部
+     * @param model    data
+     * @return announcement/index
+     */
     @GetMapping("/announcement")
     public String announcementView(@RequestParam(defaultValue = "1", name = "page") int pageNum, @RequestParam(defaultValue = "9", name = "limit") int pageSize, @RequestParam(defaultValue = "0") int type, Model model) {
         if (type == 1) {
@@ -37,8 +46,15 @@ public class AnnouncementController {
         return "announcement/index";
     }
 
+    /**
+     * 公告详情页
+     *
+     * @param id    公告Id
+     * @param model data
+     * @return announcement/detail
+     */
     @GetMapping("/announcement/{id}")
-    public String announcementDetailView(Model model, @PathVariable("id") Integer id) {
+    public String announcementDetailView(@PathVariable("id") Integer id, Model model) {
         Announcement announcement = announcementService.getAnnouncementById(id);
         List<Announcement> announcements = announcementService.listNewAnnouncements();
         model.addAttribute("announcement", announcement);

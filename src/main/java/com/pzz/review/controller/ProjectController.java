@@ -36,6 +36,16 @@ public class ProjectController {
     @Autowired
     private UserService userService;
 
+    /**
+     * 项目列表
+     *
+     * @param pageNum     页数
+     * @param pageSize    每页显示数量
+     * @param type        项目类别，0=全部，1=审核中，2=已审核
+     * @param httpSession Session
+     * @param model       data
+     * @return project/index
+     */
     @GetMapping("/project")
     public String project(@RequestParam(defaultValue = "1", name = "page") int pageNum, @RequestParam(defaultValue = "9", name = "limit") int pageSize, @RequestParam(defaultValue = "0") int type, HttpSession httpSession, Model model) {
         if (type > 2)
@@ -53,11 +63,23 @@ public class ProjectController {
         return "project/index";
     }
 
+    /**
+     * 添加项目页面
+     *
+     * @return project/add
+     */
     @GetMapping("/project/add")
     public String addProjectView() {
         return "project/add";
     }
 
+    /**
+     * 添加项目
+     *
+     * @param map         项目信息
+     * @param httpSession Session
+     * @return response
+     */
     @PostMapping("/project/add")
     @ResponseBody
     public ResponseDTO<Integer> addProject(@RequestBody Map<String, String> map, HttpSession httpSession) {
@@ -75,8 +97,15 @@ public class ProjectController {
         return new ResponseDTO<>(1, "添加成功", project.getId());
     }
 
+    /**
+     * 查看项目详情页面
+     *
+     * @param id    项目Id
+     * @param model data
+     * @return project/detail
+     */
     @GetMapping("/project/{id}")
-    public String projectDetail(@PathVariable("id") Integer id, Model model) {
+    public String projectDetailView(@PathVariable("id") Integer id, Model model) {
         ProjectDetailDTO projectDetail = projectService.getProjectDetail(id);
         List<Announcement> announcements = announcementService.listNewAnnouncements();
         List<Attachment> attachments = attachmentService.listAttachment(id);

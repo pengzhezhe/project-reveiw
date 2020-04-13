@@ -2,7 +2,6 @@ package com.pzz.review.service;
 
 import com.pzz.review.domain.Project;
 import com.pzz.review.dto.ProjectDetailDTO;
-import com.pzz.review.dto.ResponseDTO;
 
 import java.util.List;
 
@@ -21,6 +20,6 @@ public interface ProjectService {
 
     List<Project> listProjectsByUserId(Integer userId);
 
-    List<Project> listProjectsByUserIdAndStatus(Integer userId,Integer status);
+    List<Project> listProjectsByUserIdAndStatus(Integer userId, Integer status);
 
 }

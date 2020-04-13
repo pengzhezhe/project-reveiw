@@ -14,21 +14,30 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
-import org.springframework.web.multipart.MultipartHttpServletRequest;
 
-import javax.servlet.http.HttpServletRequest;
 import java.io.IOException;
 import java.net.URLEncoder;
-import java.util.List;
+import java.nio.charset.StandardCharsets;
 
 @Controller
 public class AttachmentController {
+    /**
+     * 文件上传路径
+     */
     @Value("${file.upload-dir}")
     String filePath;
 
     @Autowired
     private AttachmentService attachmentService;
 
+    /**
+     * 文件上传
+     *
+     * @param file      上传的文件
+     * @param projectId 文件所属项目
+     * @return response
+     * @throws IOException
+     */
     @PostMapping("/attachment/upload")
     @ResponseBody
     public ResponseDTO<String> fileUpload(@RequestParam("file") MultipartFile file, @RequestParam("projectId") Integer projectId) throws IOException {
@@ -38,14 +47,21 @@ public class AttachmentController {
             throw new AppException("上传文件失败");
     }
 
+    /**
+     * 文件下载
+     *
+     * @param attachmentId 文件Id
+     * @return 文件流
+     * @throws IOException
+     */
     @GetMapping("/attachment/download/{id}")
     public ResponseEntity<InputStreamResource> fileDownload(@PathVariable("id") Integer attachmentId) throws IOException {
-        Attachment attachment = attachmentService.downloadFile(attachmentId);
+        Attachment attachment = attachmentService.getAttachment(attachmentId);
         FileSystemResource file = new FileSystemResource(filePath + attachment.getFilename());
         HttpHeaders headers = new HttpHeaders();
         String fileName = attachment.getOriginalName();
         headers.add("Cache-Control", "no-cache, no-store, must-revalidate");
-        headers.add("Content-Disposition", "attachment; fileName=" + fileName + ";filename*=utf-8''" + URLEncoder.encode(fileName, "UTF-8"));
+        headers.add("Content-Disposition", "attachment; fileName=" + fileName + ";filename*=utf-8''" + URLEncoder.encode(fileName, StandardCharsets.UTF_8));
         headers.add("Pragma", "no-cache");
         headers.add("Expires", "0");
         return ResponseEntity

@@ -19,17 +19,35 @@ public class UserController {
     @Autowired
     private UserService userService;
 
+    /**
+     * 登录页面
+     *
+     * @return user/login
+     */
     @GetMapping("/login")
     public String loginView() {
         return "user/login";
     }
 
+    /**
+     * 登出
+     *
+     * @param httpSession Session
+     * @return user/login
+     */
     @GetMapping("/logout")
     public String logout(HttpSession httpSession) {
         httpSession.invalidate();
         return "redirect:/login";
     }
 
+    /**
+     * 更新个人信息页面
+     *
+     * @param httpSession Session
+     * @param model       data
+     * @return user/update
+     */
     @GetMapping("/user/update")
     public String updateUserView(HttpSession httpSession, Model model) {
         String username = (String) httpSession.getAttribute("username");
@@ -38,6 +56,13 @@ public class UserController {
         return "user/update";
     }
 
+    /**
+     * 更新用户信息
+     *
+     * @param map         用户信息
+     * @param httpSession Session
+     * @return response
+     */
     @PostMapping("/user/update")
     @ResponseBody
     public ResponseDTO<String> updateUser(@RequestBody Map<String, String> map, HttpSession httpSession) {
@@ -53,6 +78,13 @@ public class UserController {
         return new ResponseDTO<>(1, "修改成功", null);
     }
 
+    /**
+     * 修改密码
+     *
+     * @param map         密码
+     * @param httpSession Session
+     * @return response
+     */
     @PostMapping("/user/update/password")
     @ResponseBody
     public ResponseDTO<String> updatePassword(@RequestBody Map<String, String> map, HttpSession httpSession) {
@@ -63,6 +95,13 @@ public class UserController {
         return new ResponseDTO<>(1, "修改成功", null);
     }
 
+    /**
+     * 登录
+     *
+     * @param map         用户名、密码
+     * @param httpSession Session
+     * @return response
+     */
     @PostMapping("/login")
     @ResponseBody
     public ResponseDTO<String> login(@RequestBody Map<String, String> map, HttpSession httpSession) {

@@ -4,6 +4,9 @@ import lombok.Data;
 
 import java.util.Date;
 
+/**
+ * 项目
+ */
 @Data
 public class Project {
     private Integer id;

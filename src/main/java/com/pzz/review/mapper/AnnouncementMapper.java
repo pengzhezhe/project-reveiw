@@ -13,11 +13,12 @@ public interface AnnouncementMapper {
 
     int insert(Announcement announcement);
 
+    int update(Announcement announcement);
+
     Announcement getAnnouncement(Integer id);
 
     List<Announcement> listAnnouncements();
 
     List<Announcement> listNewAnnouncements();
 
-    int update(Announcement announcement);
 }

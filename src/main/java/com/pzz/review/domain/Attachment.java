@@ -4,6 +4,9 @@ import lombok.Data;
 
 import java.util.Date;
 
+/**
+ * 附件
+ */
 @Data
 public class Attachment {
     private Integer id;

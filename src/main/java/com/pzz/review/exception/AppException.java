@@ -1,5 +1,8 @@
 package com.pzz.review.exception;
 
+/**
+ * Service层统一异常
+ */
 public class AppException extends RuntimeException {
     public AppException() {
         super();

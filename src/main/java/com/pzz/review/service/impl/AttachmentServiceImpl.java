@@ -18,11 +18,10 @@ import java.util.UUID;
 @Service
 @Slf4j
 public class AttachmentServiceImpl implements AttachmentService {
-    @Autowired
-    private AttachmentMapper attachmentMapper;
-
     @Value("${file.upload-dir}")
     String filePath;
+    @Autowired
+    private AttachmentMapper attachmentMapper;
 
     @Override
     public boolean fileUpload(MultipartFile file, Integer projectId) throws IOException {
@@ -44,7 +43,7 @@ public class AttachmentServiceImpl implements AttachmentService {
     }
 
     @Override
-    public Attachment downloadFile(Integer attachmentId) {
+    public Attachment getAttachment(Integer attachmentId) {
         Attachment attachment = attachmentMapper.getAttachment(attachmentId);
         String filename = attachment.getFilename();
         log.info(attachment.toString());

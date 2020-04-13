@@ -13,6 +13,8 @@ public interface ProjectMapper {
 
     int insert(Project project);
 
+    int update(Project project);
+
     Project getProject(Integer id);
 
     List<Project> listProjects();
@@ -25,5 +27,4 @@ public interface ProjectMapper {
 
     List<Project> listProjectsByUserIdAndStatus(Integer userId, Integer status);
 
-    int update(Project project);
 }

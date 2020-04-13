@@ -12,12 +12,21 @@ import org.web3j.protocol.http.HttpService;
 
 import java.io.IOException;
 
+/**
+ * Web3J自动配置
+ */
 @Configuration
 public class Web3JAutoConfiguration {
 
+    /**
+     * 区块链管理员账户钱包文件路径
+     */
     @Value("${web3j.account.keypath}")
     private String keyPath;
 
+    /**
+     * 区块链管理员账户密码
+     */
     @Value("${web3j.account.password}")
     private String password;
 
@@ -32,9 +41,9 @@ public class Web3JAutoConfiguration {
     }
 
     @Bean
-    public Credentials credentials(){
+    public Credentials credentials() {
         try {
-            return WalletUtils.loadCredentials(password,keyPath);
+            return WalletUtils.loadCredentials(password, keyPath);
         } catch (IOException | CipherException e) {
             e.printStackTrace();
         }

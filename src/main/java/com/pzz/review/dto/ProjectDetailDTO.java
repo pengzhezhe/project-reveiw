@@ -6,6 +6,9 @@ import lombok.Data;
 
 import java.util.Date;
 
+/**
+ * 项目详情
+ */
 @Data
 public class ProjectDetailDTO {
     private Integer id;

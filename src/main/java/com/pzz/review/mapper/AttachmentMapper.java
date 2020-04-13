@@ -13,11 +13,12 @@ public interface AttachmentMapper {
 
     int insert(Attachment attachment);
 
+    int update(Attachment attachment);
+
     Attachment getAttachment(Integer id);
 
     List<Attachment> listAttachments();
 
     List<Attachment> listAttachmentsByProjectId(Integer projectId);
 
-    int update(Attachment attachment);
 }

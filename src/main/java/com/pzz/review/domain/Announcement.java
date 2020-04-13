@@ -5,6 +5,9 @@ import lombok.Data;
 import java.util.Date;
 
 @Data
+/**
+ * 公告
+ */
 public class Announcement {
     private Integer id;
 

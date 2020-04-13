@@ -3,6 +3,11 @@ package com.pzz.review.dto;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 
+/**
+ * 统一返回值
+ *
+ * @param <T>
+ */
 @Data
 @AllArgsConstructor
 public class ResponseDTO<T> {

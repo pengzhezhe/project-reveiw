@@ -9,9 +9,12 @@ import java.util.List;
 @Mapper
 @Repository
 public interface UserMapper {
+
     int delete(Integer id);
 
     int insert(User user);
+
+    int update(User user);
 
     User getUserByUsername(String username);
 
@@ -19,5 +22,4 @@ public interface UserMapper {
 
     List<User> listUsers(Integer userType);
 
-    int update(User user);
 }
