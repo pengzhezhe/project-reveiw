@@ -14,9 +14,12 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
+import org.springframework.web.multipart.MultipartHttpServletRequest;
 
+import javax.servlet.http.HttpServletRequest;
 import java.io.IOException;
 import java.net.URLEncoder;
+import java.util.List;
 
 @Controller
 public class AttachmentController {
@@ -29,7 +32,7 @@ public class AttachmentController {
     @PostMapping("/attachment/upload")
     @ResponseBody
     public ResponseDTO<String> fileUpload(@RequestParam("file") MultipartFile file, @RequestParam("projectId") Integer projectId) throws IOException {
-        if (attachmentService.uploadFile(file, projectId))
+        if (attachmentService.fileUpload(file, projectId))
             return new ResponseDTO<>(1, "上传成功", null);
         else
             throw new AppException("上传文件失败");

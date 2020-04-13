@@ -25,7 +25,7 @@ public class AttachmentServiceImpl implements AttachmentService {
     String filePath;
 
     @Override
-    public boolean uploadFile(MultipartFile file, Integer projectId) throws IOException {
+    public boolean fileUpload(MultipartFile file, Integer projectId) throws IOException {
         if (file.isEmpty())
             throw new AppException("文件为空");
         Attachment attachment = new Attachment();
@@ -41,11 +41,6 @@ public class AttachmentServiceImpl implements AttachmentService {
             dest.getParentFile().mkdirs();
         file.transferTo(dest);
         return attachmentMapper.insert(attachment) > 0;
-    }
-
-    @Override
-    public boolean uploadFile(MultipartFile file) throws IOException {
-        return uploadFile(file, null);
     }
 
     @Override
