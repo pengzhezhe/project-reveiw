@@ -23,7 +23,7 @@ public class ProjectMapperTest {
 
     @Test
     public void listProjectsByUserId() {
-        List<Project> projects = projectMapper.listProjectsByUserId(1);
+        List<Project> projects = projectMapper.listProjectsByUserId(100);
         System.out.println(projects);
     }
 

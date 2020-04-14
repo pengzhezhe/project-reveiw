@@ -42,7 +42,7 @@ public class AttachmentController {
     @ResponseBody
     public ResponseDTO<String> fileUpload(@RequestParam("file") MultipartFile file, @RequestParam("projectId") Integer projectId) throws IOException {
         if (attachmentService.fileUpload(file, projectId))
-            return new ResponseDTO<>(1, "上传成功", null);
+            return new ResponseDTO<>(0, "上传成功", null);
         else
             throw new AppException("上传文件失败");
     }

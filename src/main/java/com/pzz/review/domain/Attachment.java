@@ -2,11 +2,9 @@ package com.pzz.review.domain;
 
 import lombok.Data;
 
+import java.sql.Timestamp;
 import java.util.Date;
 
-/**
- * 附件
- */
 @Data
 public class Attachment {
     private Integer id;
@@ -17,7 +15,7 @@ public class Attachment {
 
     private String originalName;
 
-    private Date createTime;
+    private Timestamp createTime;
 
-    private Date updateTime;
+    private Timestamp updateTime;
 }

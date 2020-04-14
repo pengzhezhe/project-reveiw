@@ -49,7 +49,7 @@
                 data: JSON.stringify(data.field),
                 success: function (response) {
                     console.log(response);
-                    if (response.code === 1){
+                    if (response.code === 0){
                         layer.msg(response.msg);
                         window.location.href = "/project";
                     }

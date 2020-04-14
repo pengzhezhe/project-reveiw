@@ -2,11 +2,9 @@ package com.pzz.review.domain;
 
 import lombok.Data;
 
+import java.sql.Timestamp;
 import java.util.Date;
 
-/**
- * 评审信息
- */
 @Data
 public class Review {
     private Integer projectId;
@@ -15,7 +13,7 @@ public class Review {
 
     private String opinion;
 
-    private Date createTime;
+    private Timestamp createTime;
 
-    private Date updateTime;
+    private Timestamp updateTime;
 }

@@ -1,18 +1,89 @@
 package com.pzz.review.service.impl;
 
+import com.github.pagehelper.PageHelper;
+import com.github.pagehelper.PageInfo;
+import com.pzz.review.ao.UserAO;
 import com.pzz.review.domain.User;
+import com.pzz.review.dto.PageDTO;
+import com.pzz.review.dto.UserDTO;
 import com.pzz.review.exception.AppException;
 import com.pzz.review.mapper.UserMapper;
 import com.pzz.review.service.UserService;
+import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.ArrayList;
 import java.util.List;
 
 @Service
 public class UserServiceImpl implements UserService {
     @Autowired
     private UserMapper userMapper;
+
+    @Override
+    public boolean addUser(UserAO userAO) {
+        if (userMapper.getUserByUsername(userAO.getUsername()) != null)
+            throw new AppException("用户名已存在");
+        User user = new User();
+        BeanUtils.copyProperties(userAO, user);
+        return userMapper.insert(user) > 0;
+    }
+
+    @Override
+    public boolean deleteUser(Integer userId) {
+        return userMapper.delete(userId) > 0;
+    }
+
+    @Override
+    public boolean updateUser(UserAO userAO) {
+        User user = userMapper.getUserByUsername(userAO.getUsername());
+        if (user == null)
+            throw new AppException("用户不存在");
+        user.setName(userAO.getName());
+        user.setSex(userAO.getSex());
+        user.setEmail(userAO.getEmail());
+        return userMapper.update(user) > 0;
+    }
+
+    @Override
+    public UserDTO getUser(Integer userId) {
+        User user = userMapper.getUser(userId);
+        if (user == null)
+            return null;
+        UserDTO userDTO = new UserDTO();
+        BeanUtils.copyProperties(user, userDTO);
+        return userDTO;
+    }
+
+    @Override
+    public PageDTO<UserDTO> listUsers(Integer userType, Integer pageNum, Integer pageSize) {
+        PageHelper.startPage(pageNum, pageSize);
+        List<User> users = userMapper.listUsers(userType);
+        PageInfo pageInfo = new PageInfo(users);
+        List<UserDTO> userDTOS = new ArrayList<>();
+        for (User u : users) {
+            UserDTO userDTO = new UserDTO();
+            BeanUtils.copyProperties(u, userDTO);
+            userDTOS.add(userDTO);
+        }
+        return new PageDTO<>(userDTOS, pageInfo.getTotal());
+    }
+
+    @Override
+    public UserDTO getUserByUsername(String username) {
+        User user = userMapper.getUserByUsername(username);
+        if (user == null)
+            return null;
+        UserDTO userDTO = new UserDTO();
+        BeanUtils.copyProperties(user, userDTO);
+        return userDTO;
+    }
+
+    @Override
+    public Integer getUserIdByUsername(String username) {
+        return getUserByUsername(username).getId();
+    }
 
     @Override
     public boolean login(String username, String password) {
@@ -24,26 +95,6 @@ public class UserServiceImpl implements UserService {
         return true;
     }
 
-
-    @Override
-    public boolean addUser(User user) {
-        if (userMapper.getUserByUsername(user.getUsername()) != null)
-            throw new AppException("用户名已存在");
-        return userMapper.insert(user) > 0;
-    }
-
-    @Override
-    public boolean deleteUser(Integer userId) {
-        return userMapper.delete(userId) > 0;
-    }
-
-    @Override
-    public boolean updateUser(User user) {
-        if (userMapper.getUserByUsername(user.getUsername()) == null)
-            throw new AppException("用户不存在");
-        return userMapper.update(user) > 0;
-    }
-
     @Override
     public boolean changePassword(String username, String password, String newPassword) {
         User user = userMapper.getUserByUsername(username);
@@ -53,25 +104,5 @@ public class UserServiceImpl implements UserService {
             throw new AppException("密码不正确");
         user.setPassword(newPassword);
         return userMapper.update(user) > 0;
-    }
-
-    @Override
-    public User getUser(Integer userId) {
-        return userMapper.getUser(userId);
-    }
-
-    @Override
-    public User getUserByUsername(String username) {
-        return userMapper.getUserByUsername(username);
-    }
-
-    @Override
-    public Integer getUserIdByUsername(String username) {
-        return getUserByUsername(username).getId();
-    }
-
-    @Override
-    public List<User> listUsers(Integer userType) {
-        return userMapper.listUsers(userType);
     }
 }

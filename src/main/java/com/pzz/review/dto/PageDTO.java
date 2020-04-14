@@ -3,12 +3,12 @@ package com.pzz.review.dto;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 
+import java.util.List;
+
 @Data
 @AllArgsConstructor
-public class ResponseDTO<T> {
-    private int code;
+public class PageDTO<T> {
+    private List<T> data;
 
-    private String msg;
-
-    private T data;
+    private long count;
 }

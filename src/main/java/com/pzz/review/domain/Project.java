@@ -2,11 +2,9 @@ package com.pzz.review.domain;
 
 import lombok.Data;
 
+import java.sql.Timestamp;
 import java.util.Date;
 
-/**
- * 项目
- */
 @Data
 public class Project {
     private Integer id;
@@ -21,7 +19,7 @@ public class Project {
 
     private Integer status;
 
-    private Date createTime;
+    private Timestamp createTime;
 
-    private Date updateTime;
+    private Timestamp updateTime;
 }

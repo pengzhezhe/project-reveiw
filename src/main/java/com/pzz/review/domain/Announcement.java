@@ -2,12 +2,10 @@ package com.pzz.review.domain;
 
 import lombok.Data;
 
+import java.sql.Timestamp;
 import java.util.Date;
 
 @Data
-/**
- * 公告
- */
 public class Announcement {
     private Integer id;
 
@@ -15,8 +13,8 @@ public class Announcement {
 
     private String content;
 
-    private Date createTime;
+    private Timestamp createTime;
 
-    private Date updateTime;
+    private Timestamp updateTime;
 
 }

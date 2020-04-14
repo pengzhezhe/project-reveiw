@@ -8,6 +8,7 @@ import com.pzz.review.domain.Project;
 import com.pzz.review.domain.User;
 import com.pzz.review.dto.ProjectDetailDTO;
 import com.pzz.review.dto.ResponseDTO;
+import com.pzz.review.dto.UserDTO;
 import com.pzz.review.exception.AppException;
 import com.pzz.review.service.AnnouncementService;
 import com.pzz.review.service.AttachmentService;
@@ -86,7 +87,7 @@ public class ProjectController {
         String name = map.get("name");
         String introduction = map.get("introduction");
         String username = (String) httpSession.getAttribute("username");
-        User user = userService.getUserByUsername(username);
+        UserDTO user = userService.getUserByUsername(username);
         Project project = new Project();
         project.setName(name);
         project.setIntroduction(introduction);
@@ -94,7 +95,7 @@ public class ProjectController {
         project.setUserName(user.getName());
         project.setStatus(0);
         projectService.addProject(project);
-        return new ResponseDTO<>(1, "添加成功", project.getId());
+        return new ResponseDTO<>(0, "添加成功", project.getId());
     }
 
     /**

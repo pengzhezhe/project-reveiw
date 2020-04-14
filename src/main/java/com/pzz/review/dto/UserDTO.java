@@ -1,17 +1,16 @@
-package com.pzz.review.domain;
+package com.pzz.review.dto;
 
+import lombok.AllArgsConstructor;
 import lombok.Data;
 
 import java.sql.Timestamp;
 import java.util.Date;
 
 @Data
-public class User {
+public class UserDTO {
     private Integer id;
 
     private String username;
-
-    private String password;
 
     private String name;
 
@@ -19,9 +18,5 @@ public class User {
 
     private String email;
 
-    private Integer userType;
-
     private Timestamp createTime;
-
-    private Timestamp updateTime;
 }

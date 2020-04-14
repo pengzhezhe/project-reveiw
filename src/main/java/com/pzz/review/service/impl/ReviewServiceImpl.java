@@ -23,6 +23,7 @@ import org.web3j.protocol.core.methods.response.TransactionReceipt;
 import org.web3j.tx.gas.DefaultGasProvider;
 
 import java.math.BigInteger;
+import java.sql.Timestamp;
 import java.util.Arrays;
 import java.util.Date;
 import java.util.List;
@@ -91,8 +92,8 @@ public class ReviewServiceImpl implements ReviewService {
             review.setProjectId(project_Id.getValue().intValue());
             review.setStatus(status.getValue().intValue());
             review.setOpinion(opinion.getValue());
-            review.setCreateTime(new Date(createTime.getValue().longValue() * 1000));
-            review.setUpdateTime(new Date(updateTime.getValue().longValue() * 1000));
+            review.setCreateTime(new Timestamp(createTime.getValue().longValue() * 1000));
+            review.setUpdateTime(new Timestamp(updateTime.getValue().longValue() * 1000));
         } catch (InterruptedException | ExecutionException e) {
             e.printStackTrace();
         }

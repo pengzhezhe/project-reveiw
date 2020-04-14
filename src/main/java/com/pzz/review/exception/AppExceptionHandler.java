@@ -21,7 +21,7 @@ public class AppExceptionHandler {
     @ExceptionHandler(AppException.class)
     @ResponseBody
     public ResponseDTO<String> handleAppException(AppException e) {
-        return new ResponseDTO<>(0, e.getMessage(), null);
+        return new ResponseDTO<>(1, e.getMessage(), null);
     }
 
 }

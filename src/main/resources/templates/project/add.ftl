@@ -122,7 +122,7 @@
                 dataType: "json",
                 data: JSON.stringify(data.field),
                 success: function (response) {
-                    if (response.code === 1) {
+                    if (response.code === 0) {
                         $('#projectId').val(response.data);
                         step.next('#stepForm');
                     } else
@@ -193,7 +193,7 @@
                 });
             },
             done: function (res, index, upload) {
-                if (res.code === 1) { //上传成功
+                if (res.code === 0) { //上传成功
                     var tr = demoListView.find('tr#upload-' + index)
                         , tds = tr.children();
                     tds.eq(2).html('<span style="color: #5FB878;">上传成功</span>');

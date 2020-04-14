@@ -4,11 +4,9 @@ import com.pzz.review.domain.Project;
 import com.pzz.review.domain.Review;
 import lombok.Data;
 
+import java.sql.Timestamp;
 import java.util.Date;
 
-/**
- * 项目详情
- */
 @Data
 public class ProjectDetailDTO {
     private Integer id;
@@ -23,11 +21,11 @@ public class ProjectDetailDTO {
 
     private String opinion;
 
-    private Date createTime;
+    private Timestamp createTime;
 
-    private Date updateTime;
+    private Timestamp updateTime;
 
-    private Date reviewTime;
+    private Timestamp reviewTime;
 
     public ProjectDetailDTO(Project project, Review review) {
         this.id = project.getId();
