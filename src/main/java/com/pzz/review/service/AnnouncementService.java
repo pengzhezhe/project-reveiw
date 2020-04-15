@@ -1,11 +1,12 @@
 package com.pzz.review.service;
 
 import com.pzz.review.domain.Announcement;
+import com.pzz.review.dto.PageDTO;
 
 import java.util.List;
 
 public interface AnnouncementService {
-    List<Announcement> listAnnouncements();
+    PageDTO<Announcement> listAnnouncements(int pageNum, int pageSize);
 
     List<Announcement> listNewAnnouncements();
 

@@ -5,10 +5,10 @@ import lombok.Data;
 
 @Data
 @AllArgsConstructor
-public class ProjectAO {
-    private Integer id;
-
+public class ProjectAddAO {
     private String name;
 
     private String introduction;
+
+    private String username;
 }

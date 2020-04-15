@@ -51,8 +51,6 @@ public class UserServiceImpl implements UserService {
     @Override
     public UserDTO getUser(Integer userId) {
         User user = userMapper.getUser(userId);
-        if (user == null)
-            return null;
         UserDTO userDTO = new UserDTO();
         BeanUtils.copyProperties(user, userDTO);
         return userDTO;

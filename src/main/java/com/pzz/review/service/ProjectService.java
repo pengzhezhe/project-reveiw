@@ -1,24 +1,27 @@
 package com.pzz.review.service;
 
-import com.pzz.review.domain.Project;
+import com.pzz.review.ao.ProjectAO;
+import com.pzz.review.ao.ProjectAddAO;
+import com.pzz.review.dto.PageDTO;
+import com.pzz.review.dto.ProjectDTO;
 import com.pzz.review.dto.ProjectDetailDTO;
 
 import java.util.List;
 
 public interface ProjectService {
-    int addProject(Project project);
+    int addProject(ProjectAddAO projectAddAO);
 
     boolean deleteProject(Integer projectId);
 
-    boolean updateProject(Project project);
+    boolean updateProject(ProjectAO projectAO);
 
-    Project getProject(Integer projectId);
-    
-    List<Project> listProjects();
+    ProjectDTO getProject(Integer projectId);
 
-    List<Project> listProjectsByUserId(Integer userId);
+    List<ProjectDTO> listProjects();
 
-    List<Project> listProjectsByUserIdAndStatus(Integer userId, Integer status);
+    List<ProjectDTO> listProjectsByUserId(Integer userId);
+
+    PageDTO<ProjectDTO> listProjectsByUserIdAndType(Integer userId, Integer type, int pageNum, int pageSize);
 
     ProjectDetailDTO getProjectDetail(Integer projectId);
 

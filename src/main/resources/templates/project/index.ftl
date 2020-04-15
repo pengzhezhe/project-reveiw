@@ -142,8 +142,8 @@
         laypage.render({
             elem: 'page',
             limit: 9,
-            curr: ${page.pageNum},
-            count: ${page.total},
+            curr: ${pageNum},
+            count: ${count},
             jump: function (obj, first) {
                 var page = obj.curr;
                 if (!first) {

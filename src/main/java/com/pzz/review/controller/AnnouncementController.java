@@ -1,8 +1,7 @@
 package com.pzz.review.controller;
 
-import com.github.pagehelper.PageHelper;
-import com.github.pagehelper.PageInfo;
 import com.pzz.review.domain.Announcement;
+import com.pzz.review.dto.PageDTO;
 import com.pzz.review.service.AnnouncementService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -30,17 +29,16 @@ public class AnnouncementController {
     @GetMapping("/announcement")
     public String announcementView(@RequestParam(defaultValue = "1", name = "page") int pageNum, @RequestParam(defaultValue = "9", name = "limit") int pageSize, @RequestParam(defaultValue = "0") int type, Model model) {
         if (type == 1) {
-            PageHelper.startPage(pageNum, pageSize);
-            List<Announcement> announcements = announcementService.listAnnouncements();
-            PageInfo pageInfo = new PageInfo(announcements);
-            model.addAttribute("announcements", announcements);
-            model.addAttribute("page", pageInfo);
+            PageDTO<Announcement> pageDTO = announcementService.listAnnouncements(pageNum, pageSize);
+            model.addAttribute("announcements", pageDTO.getData());
+            model.addAttribute("count", pageDTO.getCount());
+            model.addAttribute("pageNum", pageNum);
             model.addAttribute("index", type);
         } else {
             List<Announcement> announcements = announcementService.listNewAnnouncements();
-            PageInfo pageInfo = new PageInfo(announcements);
             model.addAttribute("announcements", announcements);
-            model.addAttribute("page", pageInfo);
+            model.addAttribute("count", announcements.size());
+            model.addAttribute("pageNum", pageNum);
             model.addAttribute("index", type);
         }
         return "announcement/index";

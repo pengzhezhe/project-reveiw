@@ -1,14 +1,10 @@
 package com.pzz.review.controller;
 
-import com.github.pagehelper.PageHelper;
-import com.github.pagehelper.PageInfo;
+import com.pzz.review.ao.ProjectAddAO;
 import com.pzz.review.domain.Announcement;
-import com.pzz.review.domain.Attachment;
-import com.pzz.review.domain.Project;
-import com.pzz.review.dto.ProjectDetailDTO;
+import com.pzz.review.dto.PageDTO;
+import com.pzz.review.dto.ProjectDTO;
 import com.pzz.review.dto.ResponseDTO;
-import com.pzz.review.dto.UserDTO;
-import com.pzz.review.exception.AppException;
 import com.pzz.review.service.AnnouncementService;
 import com.pzz.review.service.AttachmentService;
 import com.pzz.review.service.ProjectService;
@@ -36,32 +32,7 @@ public class ProjectController {
     @Autowired
     private UserService userService;
 
-    /**
-     * 项目列表
-     *
-     * @param pageNum     页数
-     * @param pageSize    每页显示数量
-     * @param type        项目类别，0=全部，1=审核中，2=已审核
-     * @param httpSession Session
-     * @param model       data
-     * @return project/index
-     */
-    @GetMapping("/project")
-    public String listProjects(@RequestParam(defaultValue = "1", name = "page") int pageNum, @RequestParam(defaultValue = "9", name = "limit") int pageSize, @RequestParam(defaultValue = "0") int type, HttpSession httpSession, Model model) {
-        if (type > 2)
-            throw new AppException("type invalid");
-        String username = (String) httpSession.getAttribute("username");
-        Integer userId = userService.getUserIdByUsername(username);
-        PageHelper.startPage(pageNum, pageSize);
-        List<Project> projects = projectService.listProjectsByUserIdAndStatus(userId, type);
-        PageInfo pageInfo = new PageInfo(projects);
-        List<Announcement> announcements = announcementService.listNewAnnouncements();
-        model.addAttribute("projects", projects);
-        model.addAttribute("announcements", announcements);
-        model.addAttribute("page", pageInfo);
-        model.addAttribute("index", type);
-        return "project/index";
-    }
+
 
 
     /**
@@ -77,16 +48,8 @@ public class ProjectController {
         String name = map.get("name");
         String introduction = map.get("introduction");
         String username = (String) httpSession.getAttribute("username");
-        UserDTO user = userService.getUserByUsername(username);
-        Project project = new Project();
-        project.setName(name);
-        project.setIntroduction(introduction);
-        project.setUserId(user.getId());
-        project.setUserName(user.getName());
-        project.setStatus(0);
-        projectService.addProject(project);
-        return new ResponseDTO<>(0, "添加成功", project.getId());
+        ProjectAddAO projectAddAO = new ProjectAddAO(name, introduction, username);
+        int projectId = projectService.addProject(projectAddAO);
+        return new ResponseDTO<>(0, "添加成功", projectId);
     }
-
-
 }
