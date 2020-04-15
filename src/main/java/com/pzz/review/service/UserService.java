@@ -1,6 +1,7 @@
 package com.pzz.review.service;
 
 import com.pzz.review.ao.UserAO;
+import com.pzz.review.ao.UserAddAO;
 import com.pzz.review.dto.PageDTO;
 import com.pzz.review.dto.UserDTO;
 
@@ -8,10 +9,10 @@ public interface UserService {
     /**
      * 添加用户
      *
-     * @param userAO 用户信息
+     * @param userAddAO 用户信息
      * @return boolean
      */
-    boolean addUser(UserAO userAO);
+    boolean addUser(UserAddAO userAddAO);
 
     /**
      * 删除用户

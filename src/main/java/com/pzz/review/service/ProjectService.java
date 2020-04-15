@@ -13,13 +13,14 @@ public interface ProjectService {
     boolean updateProject(Project project);
 
     Project getProject(Integer projectId);
-
-    ProjectDetailDTO getProjectDetail(Integer projectId);
-
+    
     List<Project> listProjects();
 
     List<Project> listProjectsByUserId(Integer userId);
 
     List<Project> listProjectsByUserIdAndStatus(Integer userId, Integer status);
+
+    ProjectDetailDTO getProjectDetail(Integer projectId);
+
 
 }

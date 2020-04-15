@@ -5,7 +5,6 @@ import com.github.pagehelper.PageInfo;
 import com.pzz.review.domain.Announcement;
 import com.pzz.review.domain.Attachment;
 import com.pzz.review.domain.Project;
-import com.pzz.review.domain.User;
 import com.pzz.review.dto.ProjectDetailDTO;
 import com.pzz.review.dto.ResponseDTO;
 import com.pzz.review.dto.UserDTO;
@@ -48,7 +47,7 @@ public class ProjectController {
      * @return project/index
      */
     @GetMapping("/project")
-    public String project(@RequestParam(defaultValue = "1", name = "page") int pageNum, @RequestParam(defaultValue = "9", name = "limit") int pageSize, @RequestParam(defaultValue = "0") int type, HttpSession httpSession, Model model) {
+    public String listProjects(@RequestParam(defaultValue = "1", name = "page") int pageNum, @RequestParam(defaultValue = "9", name = "limit") int pageSize, @RequestParam(defaultValue = "0") int type, HttpSession httpSession, Model model) {
         if (type > 2)
             throw new AppException("type invalid");
         String username = (String) httpSession.getAttribute("username");
@@ -64,15 +63,6 @@ public class ProjectController {
         return "project/index";
     }
 
-    /**
-     * 添加项目页面
-     *
-     * @return project/add
-     */
-    @GetMapping("/project/add")
-    public String addProjectView() {
-        return "project/add";
-    }
 
     /**
      * 添加项目
@@ -98,21 +88,5 @@ public class ProjectController {
         return new ResponseDTO<>(0, "添加成功", project.getId());
     }
 
-    /**
-     * 查看项目详情页面
-     *
-     * @param id    项目Id
-     * @param model data
-     * @return project/detail
-     */
-    @GetMapping("/project/{id}")
-    public String projectDetailView(@PathVariable("id") Integer id, Model model) {
-        ProjectDetailDTO projectDetail = projectService.getProjectDetail(id);
-        List<Announcement> announcements = announcementService.listNewAnnouncements();
-        List<Attachment> attachments = attachmentService.listAttachment(id);
-        model.addAttribute("project", projectDetail);
-        model.addAttribute("announcements", announcements);
-        model.addAttribute("attachments", attachments);
-        return "project/detail";
-    }
+
 }

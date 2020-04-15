@@ -8,7 +8,7 @@
     <link rel="stylesheet" href="/layui/css/layui.css"/>
 </head>
 <body>
-<table id="user_table" lay-filter="user_table"></table>
+<table id="project_table" lay-filter="project_table"></table>
 <script src="/layui/layui.js"></script>
 <script>
     layui.use(['element', 'table', 'layer'], function () {
@@ -18,9 +18,9 @@
         var layer = layui.layer;
 
         table.render({
-            elem: '#user_table',
+            elem: '#project_table',
             height: 500,
-            url: '/user',
+            url: '/project',
             page: true,
             toolbar: true,
             parseData: function (res) {
@@ -33,19 +33,22 @@
             },
             cols: [[ //表头
                 {field: 'id', title: 'ID', sort: true, fixed: 'left'},
-                {field: 'username', title: '用户名'},
-                {field: 'name', title: '姓名'},
+                {field: 'name', title: '项目名'},
+                {field: 'userName', title: '项目发起人姓名'},
+                {field: 'userId', title: '项目发起人id'},
                 {
-                    field: 'sex', title: '性别', sort: true, templet: function (data) {
-                        if (data.sex === 0)
-                            return "男";
-                        else
-                            return "女";
+                    field: 'status', title: '项目状态', sort: true, templet: function (data) {
+                        if (data.status === 0)
+                            return "审核中";
+                        else if (data.status === 1)
+                            return "未通过";
+                        else if (data.status === 2)
+                            return "通过";
                     }
                 },
                 {field: 'email', title: '邮箱'},
                 {
-                    field: 'createTime', title: '注册时间', sort: true, templet: function (data) {
+                    field: 'createTime', title: '发布时间', sort: true, templet: function (data) {
                         var date = new Date(data.createTime);
                         var Y = date.getFullYear() + '-';
                         var M = (date.getMonth() + 1 < 10 ? '0' + (date.getMonth() + 1) : date.getMonth() + 1) + '-';
@@ -60,7 +63,7 @@
             ]]
         });
 
-        table.on('tool(user_table)', function (obj) {
+        table.on('tool(project_table)', function (obj) {
             var data = obj.data;
             var layEvent = obj.event;
 
@@ -74,7 +77,7 @@
                     area: ['450px', '70%'],
                     content: '/admin/user/update/' + data.id,
                     end: function () {
-                        table.reload('user_table');
+                        table.reload('project_table');
                     }
                 });
             } else if (layEvent === 'del') { //删除

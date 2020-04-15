@@ -3,6 +3,7 @@ package com.pzz.review.service.impl;
 import com.github.pagehelper.PageHelper;
 import com.github.pagehelper.PageInfo;
 import com.pzz.review.ao.UserAO;
+import com.pzz.review.ao.UserAddAO;
 import com.pzz.review.domain.User;
 import com.pzz.review.dto.PageDTO;
 import com.pzz.review.dto.UserDTO;
@@ -22,11 +23,12 @@ public class UserServiceImpl implements UserService {
     private UserMapper userMapper;
 
     @Override
-    public boolean addUser(UserAO userAO) {
-        if (userMapper.getUserByUsername(userAO.getUsername()) != null)
+    public boolean addUser(UserAddAO userAddAO) {
+        if (userMapper.getUserByUsername(userAddAO.getUsername()) != null)
             throw new AppException("用户名已存在");
         User user = new User();
-        BeanUtils.copyProperties(userAO, user);
+        BeanUtils.copyProperties(userAddAO, user);
+        user.setUserType(0);
         return userMapper.insert(user) > 0;
     }
 

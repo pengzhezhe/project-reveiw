@@ -1,6 +1,7 @@
 package com.pzz.review.controller;
 
 import com.pzz.review.ao.UserAO;
+import com.pzz.review.ao.UserAddAO;
 import com.pzz.review.dto.PageDTO;
 import com.pzz.review.dto.ResponseDTO;
 import com.pzz.review.dto.UserDTO;
@@ -18,41 +19,13 @@ public class UserController {
     @Autowired
     private UserService userService;
 
-    /**
-     * 登录页面
-     *
-     * @return user/login
-     */
-    @GetMapping("/login")
-    public String loginView() {
-        return "user/login";
-    }
-
-    /**
-     * 登出
-     *
-     * @param httpSession Session
-     * @return user/login
-     */
-    @GetMapping("/logout")
-    public String logout(HttpSession httpSession) {
-        httpSession.invalidate();
-        return "redirect:/login";
-    }
-
-    /**
-     * 更新个人信息页面
-     *
-     * @param httpSession Session
-     * @param model       data
-     * @return user/update
-     */
-    @GetMapping("/user/update")
-    public String updateUserView(HttpSession httpSession, Model model) {
-        String username = (String) httpSession.getAttribute("username");
-        UserDTO user = userService.getUserByUsername(username);
-        model.addAttribute("user", user);
-        return "user/update";
+    @PostMapping("/user")
+    @ResponseBody
+    public ResponseDTO<String> addUser(@RequestBody UserAddAO userAddAO) {
+        if (userService.addUser(userAddAO))
+            return new ResponseDTO<>(0, "添加用户成功", null);
+        else
+            return new ResponseDTO<>(0, "添加失败", null);
     }
 
     @GetMapping("/user")
@@ -60,6 +33,27 @@ public class UserController {
     public ResponseDTO<PageDTO<UserDTO>> listUsers(@RequestParam(defaultValue = "1", name = "page") int pageNum, @RequestParam(defaultValue = "10", name = "limit") int pageSize) {
         PageDTO<UserDTO> pageDTO = userService.listUsers(0, pageNum, pageSize);
         return new ResponseDTO<>(0, "Success", pageDTO);
+    }
+
+    @PutMapping("/user")
+    @ResponseBody
+    public ResponseDTO<String> updateUser(@RequestBody Map<String, String> map) {
+        String username = map.get("username");
+        String email = map.get("email");
+        String name = map.get("name");
+        Integer sex = Integer.parseInt(map.get("sex"));
+        UserAO userAO = new UserAO(username, email, name, sex);
+        userService.updateUser(userAO);
+        return new ResponseDTO<>(0, "修改成功", null);
+    }
+
+    @DeleteMapping("/user/{id}")
+    @ResponseBody
+    public ResponseDTO<String> deleteUser(@PathVariable("id") int userId) {
+        if (userService.deleteUser(userId))
+            return new ResponseDTO<>(0, "删除成功", null);
+        else
+            return new ResponseDTO<>(1, "删除失败", null);
     }
 
     /**
