@@ -1,14 +1,15 @@
 package com.pzz.review.controller;
 
+import com.pzz.review.ao.AnnouncementAO;
+import com.pzz.review.ao.AnnouncementAddAO;
 import com.pzz.review.domain.Announcement;
 import com.pzz.review.dto.PageDTO;
+import com.pzz.review.dto.ResponseDTO;
 import com.pzz.review.service.AnnouncementService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
@@ -58,5 +59,41 @@ public class AnnouncementController {
         model.addAttribute("announcement", announcement);
         model.addAttribute("announcements", announcements);
         return "announcement/detail";
+    }
+
+    @GetMapping("/api/announcement")
+    @ResponseBody
+    public ResponseDTO<PageDTO<Announcement>> listAnnouncement(@RequestParam(defaultValue = "1", name = "page") int pageNum, @RequestParam(defaultValue = "9", name = "limit") int pageSize) {
+        PageDTO<Announcement> pageDTO = announcementService.listAnnouncements(pageNum, pageSize);
+        return new ResponseDTO<>(0, "success", pageDTO);
+    }
+
+    @PostMapping("/api/announcement")
+    @ResponseBody
+    public ResponseDTO<String> addAnnouncement(@RequestBody AnnouncementAddAO announcementAddAO) {
+        if (announcementService.addAnnouncement(announcementAddAO))
+            return new ResponseDTO<>(0, "添加成功", null);
+        else
+            return new ResponseDTO<>(1, "添加失败", null);
+    }
+
+    @PutMapping("/api/announcement")
+    @ResponseBody
+    public ResponseDTO<String> updateAnnouncement(@RequestBody AnnouncementAO announcementAO) {
+        if (announcementService.updateAnnouncement(announcementAO))
+            return new ResponseDTO<>(0, "修改成功", null);
+        else
+            return new ResponseDTO<>(1, "修改失败", null);
+
+    }
+
+    @DeleteMapping("/api/announcement/{id}")
+    @ResponseBody
+    public ResponseDTO<String> deleteAnnouncement(@PathVariable("id") int announcementId) {
+        if (announcementService.deleteAnnouncement(announcementId))
+            return new ResponseDTO<>(0, "删除成功", null);
+        else
+            return new ResponseDTO<>(1, "删除失败", null);
+
     }
 }

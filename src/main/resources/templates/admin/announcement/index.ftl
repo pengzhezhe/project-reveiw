@@ -3,12 +3,12 @@
 
 <head>
     <meta charset="utf-8">
-    <title>用户-项目评审系统</title>
+    <title>公告-项目评审系统</title>
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
     <link rel="stylesheet" href="/layui/css/layui.css"/>
 </head>
 <body>
-<table id="user_table" lay-filter="user_table"></table>
+<table id="announcement_table" lay-filter="announcement_table"></table>
 <script src="/layui/layui.js"></script>
 <script>
     layui.use(['element', 'table', 'layer'], function () {
@@ -18,9 +18,9 @@
         var layer = layui.layer;
 
         table.render({
-            elem: '#user_table',
+            elem: '#announcement_table',
             height: 500,
-            url: '/user',
+            url: '/api/announcement',
             page: true,
             toolbar: true,
             parseData: function (res) {
@@ -33,19 +33,14 @@
             },
             cols: [[ //表头
                 {field: 'id', title: 'ID', sort: true, fixed: 'left'},
-                {field: 'username', title: '用户名'},
-                {field: 'name', title: '姓名'},
                 {
-                    field: 'sex', title: '性别', sort: true, templet: function (data) {
-                        if (data.sex === 0)
-                            return "男";
-                        else
-                            return "女";
+                    field: 'title', title: '公告标题', templet: function (data) {
+                        return "<a href='/announcement/" + data.id + "' target='_blank'>" + data.title + "</a>";
                     }
                 },
-                {field: 'email', title: '邮箱'},
+                {field: 'content', title: '公告内容'},
                 {
-                    field: 'createTime', title: '注册时间', sort: true, templet: function (data) {
+                    field: 'createTime', title: '发布时间', sort: true, templet: function (data) {
                         var date = new Date(data.createTime);
                         var Y = date.getFullYear() + '-';
                         var M = (date.getMonth() + 1 < 10 ? '0' + (date.getMonth() + 1) : date.getMonth() + 1) + '-';
@@ -60,7 +55,7 @@
             ]]
         });
 
-        table.on('tool(user_table)', function (obj) {
+        table.on('tool(announcement_table)', function (obj) {
             var data = obj.data;
             var layEvent = obj.event;
 
@@ -72,17 +67,16 @@
                     anim: 0,
                     skin: 'layui-layer-rim',
                     area: ['450px', '70%'],
-                    content: '/admin/user/update/' + data.id,
+                    content: '/admin/announcement/update/' + data.id,
                     end: function () {
-                        table.reload('user_table');
+                        table.reload('announcement_table');
                     }
                 });
             } else if (layEvent === 'del') { //删除
                 layer.confirm('真的删除行么', function (index) {
                     layer.close(index);
-                    //向服务端发送删除指令
                     $.ajax({
-                        url: "/user/" + data.id,
+                        url: "/api/announcement/" + data.id,
                         method: "DELETE",
                         dataType: "json",
                         success: function (response) {

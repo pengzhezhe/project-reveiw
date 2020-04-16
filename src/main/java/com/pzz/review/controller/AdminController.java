@@ -1,6 +1,10 @@
 package com.pzz.review.controller;
 
+import com.pzz.review.domain.Announcement;
+import com.pzz.review.dto.ProjectDTO;
 import com.pzz.review.dto.UserDTO;
+import com.pzz.review.service.AnnouncementService;
+import com.pzz.review.service.ProjectService;
 import com.pzz.review.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -12,6 +16,12 @@ import org.springframework.web.bind.annotation.PathVariable;
 public class AdminController {
     @Autowired
     private UserService userService;
+
+    @Autowired
+    private ProjectService projectService;
+
+    @Autowired
+    private AnnouncementService announcementService;
 
     @GetMapping("/admin")
     public String indexView() {
@@ -33,5 +43,34 @@ public class AdminController {
         UserDTO user = userService.getUser(userId);
         model.addAttribute("user", user);
         return "admin/user/update";
+    }
+
+    @GetMapping("/admin/project")
+    public String projectView() {
+        return "admin/project/index";
+    }
+
+    @GetMapping("/admin/project/update/{id}")
+    public String projectUpdateView(@PathVariable("id") int projectId, Model model) {
+        ProjectDTO project = projectService.getProject(projectId);
+        model.addAttribute("project", project);
+        return "admin/project/update";
+    }
+
+    @GetMapping("/admin/announcement")
+    public String announcementView() {
+        return "admin/announcement/index";
+    }
+
+    @GetMapping("/admin/announcement/add")
+    public String announcementAddView() {
+        return "admin/announcement/add";
+    }
+
+    @GetMapping("/admin/announcement/update/{id}")
+    public String announcementUpdateView(@PathVariable("id") int announcementId, Model model) {
+        Announcement announcement = announcementService.getAnnouncementById(announcementId);
+        model.addAttribute("announcement", announcement);
+        return "admin/announcement/update";
     }
 }

@@ -33,8 +33,7 @@ public class ProjectServiceTest {
 
     @Test
     public void listProjects() {
-        List<ProjectDTO> projectDTOS = projectService.listProjects();
-        System.out.println(projectDTOS);
+
     }
 
     @Test

@@ -13,7 +13,9 @@ public class ProjectDTO {
     private Integer id;
 
     private String name;
-    
+
+    private String introduction;
+
     private String userName;
 
     private Integer userId;

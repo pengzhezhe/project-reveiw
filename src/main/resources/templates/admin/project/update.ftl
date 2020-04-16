@@ -3,7 +3,7 @@
 
 <head>
     <meta charset="utf-8">
-    <title>帐号设置</title>
+    <title>项目更新</title>
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
     <link rel="stylesheet" href="/layui/css/layui.css">
 </head>
@@ -12,28 +12,21 @@
 <div class="layui-container" style="padding: 10px">
     <form class="layui-form" lay-filter="basic">
         <div class="layui-form-item">
-            <label class="layui-form-label">用户名</label>
+            <label class="layui-form-label">ID</label>
             <div class="layui-input-inline">
-                <input type="text" name="username" required autocomplete="off" value="" class="layui-input" readonly>
+                <input type="text" name="id" required autocomplete="off" class="layui-input" readonly>
             </div>
         </div>
         <div class="layui-form-item">
-            <label class="layui-form-label">邮箱</label>
+            <label class="layui-form-label">项目名</label>
             <div class="layui-input-inline">
-                <input type="text" name="email" required lay-verify="email" autocomplete="off" class="layui-input">
+                <input name="name" required autocomplete="off" class="layui-input">
             </div>
         </div>
         <div class="layui-form-item">
-            <label class="layui-form-label">姓名</label>
+            <label class="layui-form-label">项目简介</label>
             <div class="layui-input-inline">
-                <input type="text" name="name" required lay-verify="required" autocomplete="off" class="layui-input">
-            </div>
-        </div>
-        <div class="layui-form-item">
-            <label class="layui-form-label">性别</label>
-            <div class="layui-input-inline">
-                <input type="radio" name="sex" value="0" checked title="男">
-                <input type="radio" name="sex" value="1" title="女">
+                <input name="introduction" required autocomplete="off" class="layui-input">
             </div>
         </div>
         <div class="layui-form-item">
@@ -53,15 +46,14 @@
         var element = layui.element;
 
         form.val("basic", {
-            "username": "${user.username}",
-            "email": "${user.email}",
-            "name": "${user.name}",
-            "sex": ${user.sex}
+            "id": "${project.id}",
+            "name": "${project.name}",
+            "introduction": "${project.introduction}"
         });
 
         form.on('submit(updateUser)', function (data) {
             $.ajax({
-                url: "/user",
+                url: "/api/project",
                 method: "PUT",
                 contentType: "application/json",
                 dataType: "json",

@@ -17,9 +17,9 @@ public interface ProjectService {
 
     ProjectDTO getProject(Integer projectId);
 
-    List<ProjectDTO> listProjects();
+    PageDTO<ProjectDTO> listProjects(int pageNum, int pageSize);
 
-    List<ProjectDTO> listProjectsByUserId(Integer userId);
+    PageDTO<ProjectDTO> listProjectsByUserId(Integer userId, int pageNum, int pageSize);
 
     PageDTO<ProjectDTO> listProjectsByUserIdAndType(Integer userId, Integer type, int pageNum, int pageSize);
 

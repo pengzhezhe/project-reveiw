@@ -80,27 +80,31 @@ public class ProjectServiceImpl implements ProjectService {
     }
 
     @Override
-    public List<ProjectDTO> listProjects() {
+    public PageDTO<ProjectDTO> listProjects(int pageNum, int pageSize) {
+        PageHelper.startPage(pageNum, pageSize);
         List<Project> projects = projectMapper.listProjects();
+        PageInfo pageInfo = new PageInfo(projects);
         List<ProjectDTO> projectDTOS = new ArrayList<>();
         try {
             CommonUtils.copyListProperties(projects, projectDTOS, ProjectDTO.class);
         } catch (Exception e) {
             e.printStackTrace();
         }
-        return projectDTOS;
+        return new PageDTO<>(projectDTOS, pageInfo.getTotal());
     }
 
     @Override
-    public List<ProjectDTO> listProjectsByUserId(Integer userId) {
+    public PageDTO<ProjectDTO> listProjectsByUserId(Integer userId, int pageNum, int pageSize) {
+        PageHelper.startPage(pageNum, pageSize);
         List<Project> projects = projectMapper.listProjectsByUserId(userId);
+        PageInfo pageInfo = new PageInfo(projects);
         List<ProjectDTO> projectDTOS = new ArrayList<>();
         try {
             CommonUtils.copyListProperties(projects, projectDTOS, ProjectDTO.class);
         } catch (Exception e) {
             e.printStackTrace();
         }
-        return projectDTOS;
+        return new PageDTO<>(projectDTOS, pageInfo.getTotal());
     }
 
     @Override

@@ -20,7 +20,7 @@
         table.render({
             elem: '#project_table',
             height: 500,
-            url: '/project',
+            url: '/api/project',
             page: true,
             toolbar: true,
             parseData: function (res) {
@@ -33,7 +33,12 @@
             },
             cols: [[ //表头
                 {field: 'id', title: 'ID', sort: true, fixed: 'left'},
-                {field: 'name', title: '项目名'},
+                {
+                    field: 'name', title: '项目名', templet: function (data) {
+                        return "<a href='/project/" + data.id + "' target='_blank'>" + data.name + "</a>";
+                    }
+                },
+                {field: 'introduction', title: '项目简介'},
                 {field: 'userName', title: '项目发起人姓名'},
                 {field: 'userId', title: '项目发起人id'},
                 {
@@ -46,7 +51,6 @@
                             return "通过";
                     }
                 },
-                {field: 'email', title: '邮箱'},
                 {
                     field: 'createTime', title: '发布时间', sort: true, templet: function (data) {
                         var date = new Date(data.createTime);
@@ -59,7 +63,7 @@
                         return Y + M + D + h + m + s;
                     }
                 },
-                {fixed: 'right', align: 'center', toolbar: '#barDemo'}
+                {title: '操作', fixed: 'right', align: 'center', toolbar: '#barDemo'}
             ]]
         });
 
@@ -68,14 +72,13 @@
             var layEvent = obj.event;
 
             if (layEvent === 'edit') {
-                layer.msg(data.id);
                 var index = layer.open({
                     title: ['修改信息'],
                     type: 2,
                     anim: 0,
                     skin: 'layui-layer-rim',
                     area: ['450px', '70%'],
-                    content: '/admin/user/update/' + data.id,
+                    content: '/admin/project/update/' + data.id,
                     end: function () {
                         table.reload('project_table');
                     }
@@ -83,9 +86,8 @@
             } else if (layEvent === 'del') { //删除
                 layer.confirm('真的删除行么', function (index) {
                     layer.close(index);
-                    //向服务端发送删除指令
                     $.ajax({
-                        url: "/user/" + data.id,
+                        url: "/api/project/" + data.id,
                         method: "DELETE",
                         dataType: "json",
                         success: function (response) {

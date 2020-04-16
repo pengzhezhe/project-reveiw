@@ -17,7 +17,7 @@
         insert into announcement (title, content, create_time,
                                   update_time)
         values (#{title,jdbcType=VARCHAR}, #{content,jdbcType=VARCHAR},
-                #{userName,jdbcType=VARCHAR}, #{userId,jdbcType=INTEGER}, #{createTime,jdbcType=TIMESTAMP},
+                #{createTime,jdbcType=TIMESTAMP},
                 #{updateTime,jdbcType=TIMESTAMP})
     </insert>
     <update id="update" parameterType="com.pzz.review.domain.Announcement">

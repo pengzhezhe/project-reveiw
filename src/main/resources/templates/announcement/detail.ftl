@@ -22,9 +22,7 @@
                 </div>
                 <hr class="layui-bg-gray">
                 <div class="detail-body" style="min-height: 300px">
-                    <p>
-                        ${announcement.content}
-                    </p>
+                    ${announcement.content}
                 </div>
                 <hr class="layui-bg-gray">
             </div>
