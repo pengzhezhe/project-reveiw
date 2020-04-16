@@ -45,8 +45,8 @@
         </div>
     </div>
     <div class="layui-form-item">
-        <div class="layui-input-inline">
-            <button class="layui-btn" lay-submit lay-filter="addUser">添加</button>
+        <div class="layui-input-block">
+            <button class="layui-btn" lay-submit lay-filter="addUser">提交</button>
         </div>
     </div>
 </form>

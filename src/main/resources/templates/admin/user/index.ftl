@@ -71,7 +71,7 @@
                     type: 2,
                     anim: 0,
                     skin: 'layui-layer-rim',
-                    area: ['450px', '70%'],
+                    area: ['50%', '70%'],
                     content: '/admin/user/update/' + data.id,
                     end: function () {
                         table.reload('user_table');

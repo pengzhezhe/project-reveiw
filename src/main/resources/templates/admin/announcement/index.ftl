@@ -60,13 +60,12 @@
             var layEvent = obj.event;
 
             if (layEvent === 'edit') {
-                layer.msg(data.id);
                 var index = layer.open({
                     title: ['修改信息'],
                     type: 2,
                     anim: 0,
                     skin: 'layui-layer-rim',
-                    area: ['450px', '70%'],
+                    area: ['50%', '70%'],
                     content: '/admin/announcement/update/' + data.id,
                     end: function () {
                         table.reload('announcement_table');

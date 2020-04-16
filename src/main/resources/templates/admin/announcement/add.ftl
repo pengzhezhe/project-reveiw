@@ -22,25 +22,29 @@
     <div class="layui-form-item">
         <label class="layui-form-label">内容</label>
         <div class="layui-input-block">
-            <textarea name="content" required autocomplete="off" class="layui-textarea"></textarea>
+            <textarea id="content" name="content" required autocomplete="off" class="layui-textarea"></textarea>
         </div>
     </div>
     <div class="layui-form-item">
         <div class="layui-input-block">
-            <button class="layui-btn" lay-submit lay-filter="add">添加</button>
+            <button class="layui-btn" lay-submit lay-filter="add">提交</button>
         </div>
     </div>
 </form>
 
 <script src="/layui/layui.js"></script>
 <script>
-    layui.use(['form', 'layer', 'element'], function () {
+    layui.use(['form', 'layer', 'element', 'layedit'], function () {
         var $ = layui.jquery;
         var form = layui.form;
         var layer = layui.layer;
         var element = layui.element;
+        var layedit = layui.layedit;
+
+        var content = layedit.build('content');
 
         form.on('submit(add)', function (data) {
+            data.field.content = layedit.getContent(content);
             $.ajax({
                 url: "/api/announcement",
                 method: "POST",

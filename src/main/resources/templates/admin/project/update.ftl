@@ -9,49 +9,55 @@
 </head>
 
 <body>
-<div class="layui-container" style="padding: 10px">
-    <form class="layui-form" lay-filter="basic">
-        <div class="layui-form-item">
-            <label class="layui-form-label">ID</label>
-            <div class="layui-input-inline">
-                <input type="text" name="id" required autocomplete="off" class="layui-input" readonly>
-            </div>
+<fieldset class="layui-elem-field layui-field-title" style="margin-top: 20px;">
+    <legend>修改项目信息</legend>
+</fieldset>
+<form class="layui-form" lay-filter="basic" style="width: 90%">
+    <div class="layui-form-item">
+        <label class="layui-form-label">ID</label>
+        <div class="layui-input-block">
+            <input type="text" name="id" required autocomplete="off" class="layui-input" readonly>
         </div>
-        <div class="layui-form-item">
-            <label class="layui-form-label">项目名</label>
-            <div class="layui-input-inline">
-                <input name="name" required autocomplete="off" class="layui-input">
-            </div>
+    </div>
+    <div class="layui-form-item">
+        <label class="layui-form-label">项目名</label>
+        <div class="layui-input-block">
+            <input name="name" required autocomplete="off" class="layui-input">
         </div>
-        <div class="layui-form-item">
-            <label class="layui-form-label">项目简介</label>
-            <div class="layui-input-inline">
-                <input name="introduction" required autocomplete="off" class="layui-input">
-            </div>
+    </div>
+    <div class="layui-form-item">
+        <label class="layui-form-label">项目简介</label>
+        <div class="layui-input-block">
+            <input id="introduction" name="introduction" required autocomplete="off" class="layui-input">
         </div>
-        <div class="layui-form-item">
-            <div class="layui-input-inline">
-                <button class="layui-btn" lay-submit lay-filter="updateUser">确认修改</button>
-            </div>
+    </div>
+    <div class="layui-form-item">
+        <div class="layui-input-block">
+            <button class="layui-btn" lay-submit lay-filter="updateUser">提交</button>
         </div>
-    </form>
-</div>
+    </div>
+</form>
 
 <script src="/layui/layui.js"></script>
 <script>
-    layui.use(['form', 'layer', 'element'], function () {
+    layui.use(['form', 'layer', 'element', 'layedit'], function () {
         var $ = layui.jquery;
         var form = layui.form;
         var layer = layui.layer;
         var element = layui.element;
+        var layedit = layui.layedit;
+
+        var introduction = layedit.build('introduction');
 
         form.val("basic", {
             "id": "${project.id}",
             "name": "${project.name}",
             "introduction": "${project.introduction}"
         });
+        layedit.setContent(introduction, "${project.introduction}");
 
         form.on('submit(updateUser)', function (data) {
+            data.field.introduction = layedit.getContent(introduction);
             $.ajax({
                 url: "/api/project",
                 method: "PUT",

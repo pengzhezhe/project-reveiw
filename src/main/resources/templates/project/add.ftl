@@ -111,10 +111,10 @@
             }]
         });
 
-        var contentIndex = layedit.build('introduction'); //建立编辑器
+        var introduction = layedit.build('introduction'); //建立编辑器
 
         form.on('submit(formDemo)', function (data) {
-            data.field.introduction = layedit.getContent(contentIndex);
+            data.field.introduction = layedit.getContent(introduction);
             $.ajax({
                 url: "/project/add",
                 method: "POST",
