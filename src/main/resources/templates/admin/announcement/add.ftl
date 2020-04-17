@@ -22,7 +22,7 @@
     <div class="layui-form-item">
         <label class="layui-form-label">内容</label>
         <div class="layui-input-block">
-            <textarea id="content" name="content" required autocomplete="off" class="layui-textarea"></textarea>
+            <textarea id="content" name="content" style="display: none;"></textarea>
         </div>
     </div>
     <div class="layui-form-item">

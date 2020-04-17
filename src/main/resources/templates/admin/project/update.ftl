@@ -28,7 +28,7 @@
     <div class="layui-form-item">
         <label class="layui-form-label">项目简介</label>
         <div class="layui-input-block">
-            <input id="introduction" name="introduction" required autocomplete="off" class="layui-input">
+            <textarea id="introduction" name="introduction" style="display: none;"></textarea>
         </div>
     </div>
     <div class="layui-form-item">
