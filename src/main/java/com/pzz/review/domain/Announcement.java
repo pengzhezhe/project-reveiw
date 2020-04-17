@@ -3,7 +3,6 @@ package com.pzz.review.domain;
 import lombok.Data;
 
 import java.sql.Timestamp;
-import java.util.Date;
 
 @Data
 public class Announcement {

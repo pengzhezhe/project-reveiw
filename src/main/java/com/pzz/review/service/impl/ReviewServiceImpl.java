@@ -25,7 +25,6 @@ import org.web3j.tx.gas.DefaultGasProvider;
 import java.math.BigInteger;
 import java.sql.Timestamp;
 import java.util.Arrays;
-import java.util.Date;
 import java.util.List;
 import java.util.concurrent.ExecutionException;
 

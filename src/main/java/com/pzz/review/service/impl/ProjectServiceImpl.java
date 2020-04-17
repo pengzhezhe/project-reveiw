@@ -4,6 +4,7 @@ import com.github.pagehelper.PageHelper;
 import com.github.pagehelper.PageInfo;
 import com.pzz.review.ao.ProjectAO;
 import com.pzz.review.ao.ProjectAddAO;
+import com.pzz.review.ao.ReviewAO;
 import com.pzz.review.domain.Project;
 import com.pzz.review.domain.Review;
 import com.pzz.review.domain.User;
@@ -80,32 +81,33 @@ public class ProjectServiceImpl implements ProjectService {
     }
 
     @Override
+    public boolean reviewProject(ReviewAO reviewAO) {
+        Project project = projectMapper.getProject(reviewAO.getProjectId());
+        project.setStatus(reviewAO.getStatus());
+        projectMapper.update(project);
+        return reviewService.insertReview(BigInteger.valueOf(reviewAO.getProjectId()), BigInteger.valueOf(reviewAO.getStatus()), reviewAO.getOpinion());
+    }
+
+    @Override
     public PageDTO<ProjectDTO> listProjects(int pageNum, int pageSize) {
         PageHelper.startPage(pageNum, pageSize);
         List<Project> projects = projectMapper.listProjects();
         PageInfo pageInfo = new PageInfo(projects);
         List<ProjectDTO> projectDTOS = new ArrayList<>();
-        try {
-            CommonUtils.copyListProperties(projects, projectDTOS, ProjectDTO.class);
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
+        CommonUtils.copyListProperties(projects, projectDTOS, ProjectDTO.class);
         return new PageDTO<>(projectDTOS, pageInfo.getTotal());
     }
 
     @Override
-    public PageDTO<ProjectDTO> listProjectsByUserId(Integer userId, int pageNum, int pageSize) {
+    public PageDTO<ProjectDTO> listProjectsByStatus(int status, int pageNum, int pageSize) {
         PageHelper.startPage(pageNum, pageSize);
-        List<Project> projects = projectMapper.listProjectsByUserId(userId);
+        List<Project> projects = projectMapper.listProjectsByStatus(status);
         PageInfo pageInfo = new PageInfo(projects);
         List<ProjectDTO> projectDTOS = new ArrayList<>();
-        try {
-            CommonUtils.copyListProperties(projects, projectDTOS, ProjectDTO.class);
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
+        CommonUtils.copyListProperties(projects, projectDTOS, ProjectDTO.class);
         return new PageDTO<>(projectDTOS, pageInfo.getTotal());
     }
+
 
     @Override
     public PageDTO<ProjectDTO> listProjectsByUserIdAndType(Integer userId, Integer type, int pageNum, int pageSize) {
@@ -119,11 +121,7 @@ public class ProjectServiceImpl implements ProjectService {
         else
             projects = projectMapper.listProjectsByUserId(userId);
         PageInfo pageInfo = new PageInfo(projects);
-        try {
-            CommonUtils.copyListProperties(projects, projectDTOS, ProjectDTO.class);
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
+        CommonUtils.copyListProperties(projects, projectDTOS, ProjectDTO.class);
         return new PageDTO<>(projectDTOS, pageInfo.getTotal());
     }
 }

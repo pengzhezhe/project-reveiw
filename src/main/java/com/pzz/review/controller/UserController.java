@@ -19,6 +19,25 @@ public class UserController {
     @Autowired
     private UserService userService;
 
+    @GetMapping("/login")
+    public String loginView() {
+        return "user/login";
+    }
+    
+    @GetMapping("/logout")
+    public String logout(HttpSession httpSession) {
+        httpSession.invalidate();
+        return "redirect:/login";
+    }
+
+    @GetMapping("/user/update")
+    public String updateUserView(HttpSession httpSession, Model model) {
+        String username = (String) httpSession.getAttribute("username");
+        UserDTO user = userService.getUserByUsername(username);
+        model.addAttribute("user", user);
+        return "user/update";
+    }
+
     @PostMapping("/user")
     @ResponseBody
     public ResponseDTO<String> addUser(@RequestBody UserAddAO userAddAO) {

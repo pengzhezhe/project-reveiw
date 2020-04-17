@@ -10,6 +10,7 @@ import com.pzz.review.dto.UserDTO;
 import com.pzz.review.exception.AppException;
 import com.pzz.review.mapper.UserMapper;
 import com.pzz.review.service.UserService;
+import com.pzz.review.utils.CommonUtils;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -62,11 +63,7 @@ public class UserServiceImpl implements UserService {
         List<User> users = userMapper.listUsers(userType);
         PageInfo pageInfo = new PageInfo(users);
         List<UserDTO> userDTOS = new ArrayList<>();
-        for (User u : users) {
-            UserDTO userDTO = new UserDTO();
-            BeanUtils.copyProperties(u, userDTO);
-            userDTOS.add(userDTO);
-        }
+        CommonUtils.copyListProperties(users, userDTOS, UserDTO.class);
         return new PageDTO<>(userDTOS, pageInfo.getTotal());
     }
 

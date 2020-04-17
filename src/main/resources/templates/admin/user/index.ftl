@@ -70,7 +70,7 @@
                     title: ['修改信息'],
                     type: 2,
                     anim: 0,
-                    skin: 'layui-layer-rim',
+                    skin: 'layui-layer-molv',
                     area: ['50%', '70%'],
                     content: '/admin/user/update/' + data.id,
                     end: function () {

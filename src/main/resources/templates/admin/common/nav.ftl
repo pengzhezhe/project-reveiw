@@ -12,7 +12,7 @@
                 <a href="javascript:;">项目管理</a>
                 <dl class="layui-nav-child">
                     <dd><a href="/admin/project" target="content_frame">项目列表</a></dd>
-                    <dd><a href="javascript:;" target="content_frame">项目评审</a></dd>
+                    <dd><a href="/admin/review" target="content_frame">项目评审</a></dd>
                 </dl>
             </li>
             <li class="layui-nav-item layui-nav-itemed">

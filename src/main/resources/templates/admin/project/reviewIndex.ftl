@@ -3,24 +3,24 @@
 
 <head>
     <meta charset="utf-8">
-    <title>公告-项目评审系统</title>
+    <title>项目-项目评审系统</title>
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
     <link rel="stylesheet" href="/layui/css/layui.css"/>
 </head>
 <body>
-<table id="announcement_table" lay-filter="announcement_table"></table>
+<table id="project_table" lay-filter="project_table"></table>
 <script src="/layui/layui.js"></script>
 <script>
     layui.use(['element', 'table', 'layer'], function () {
-        var element = layui.element;
         var $ = layui.jquery;
+        var element = layui.element;
         var table = layui.table;
         var layer = layui.layer;
 
         table.render({
-            elem: '#announcement_table',
+            elem: '#project_table',
             height: 500,
-            url: '/api/announcement',
+            url: '/api/project?type=0',
             page: true,
             toolbar: true,
             parseData: function (res) {
@@ -34,11 +34,23 @@
             cols: [[ //表头
                 {field: 'id', title: 'ID', sort: true, fixed: 'left'},
                 {
-                    field: 'title', title: '公告标题', templet: function (data) {
-                        return "<a href='/announcement/" + data.id + "' target='_blank'>" + data.title + "</a>";
+                    field: 'name', title: '项目名', templet: function (data) {
+                        return "<a href='/project/" + data.id + "' target='_blank'>" + data.name + "</a>";
                     }
                 },
-                {field: 'content', title: '公告内容'},
+                {field: 'introduction', title: '项目简介'},
+                {field: 'userName', title: '项目发起人姓名'},
+                {field: 'userId', title: '项目发起人id'},
+                {
+                    field: 'status', title: '项目状态', sort: true, templet: function (data) {
+                        if (data.status === 0)
+                            return "审核中";
+                        else if (data.status === 1)
+                            return "未通过";
+                        else if (data.status === 2)
+                            return "通过";
+                    }
+                },
                 {
                     field: 'createTime', title: '发布时间', sort: true, templet: function (data) {
                         var date = new Date(data.createTime);
@@ -55,43 +67,18 @@
             ]]
         });
 
-        table.on('tool(announcement_table)', function (obj) {
+        table.on('tool(project_table)', function (obj) {
             var data = obj.data;
             var layEvent = obj.event;
 
-            if (layEvent === 'edit') {
-                var index = layer.open({
-                    title: ['修改信息'],
-                    type: 2,
-                    anim: 0,
-                    skin: 'layui-layer-molv',
-                    area: ['50%', '70%'],
-                    content: '/admin/announcement/update/' + data.id,
-                    end: function () {
-                        table.reload('announcement_table');
-                    }
-                });
-            } else if (layEvent === 'del') { //删除
-                layer.confirm('真的删除行么', function (index) {
-                    layer.close(index);
-                    $.ajax({
-                        url: "/api/announcement/" + data.id,
-                        method: "DELETE",
-                        dataType: "json",
-                        success: function (response) {
-                            if (response.code === 0)
-                                obj.del();
-                            layer.msg(response.msg);
-                        }
-                    });
-                });
+            if (layEvent === 'review') {
+                window.location.href = '/admin/project/review/' + data.id;
             }
         });
     });
 </script>
 <script type="text/html" id="barDemo">
-    <a class="layui-btn layui-btn-xs" lay-event="edit">编辑</a>
-    <a class="layui-btn layui-btn-danger layui-btn-xs" lay-event="del">删除</a>
+    <a class="layui-btn layui-btn-normal layui-btn-xs" lay-event="review">评审</a>
 </script>
 </body>
 </html>

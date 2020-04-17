@@ -1,10 +1,8 @@
 package com.pzz.review.dto;
 
-import lombok.AllArgsConstructor;
 import lombok.Data;
 
 import java.sql.Timestamp;
-import java.util.Date;
 
 @Data
 public class UserDTO {

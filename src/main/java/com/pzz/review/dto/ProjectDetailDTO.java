@@ -5,7 +5,6 @@ import com.pzz.review.domain.Review;
 import lombok.Data;
 
 import java.sql.Timestamp;
-import java.util.Date;
 
 @Data
 public class ProjectDetailDTO {

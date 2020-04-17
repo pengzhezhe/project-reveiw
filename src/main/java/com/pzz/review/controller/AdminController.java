@@ -1,16 +1,22 @@
 package com.pzz.review.controller;
 
+import com.pzz.review.ao.ReviewAO;
 import com.pzz.review.domain.Announcement;
+import com.pzz.review.domain.Attachment;
 import com.pzz.review.dto.ProjectDTO;
+import com.pzz.review.dto.ProjectDetailDTO;
+import com.pzz.review.dto.ResponseDTO;
 import com.pzz.review.dto.UserDTO;
-import com.pzz.review.service.AnnouncementService;
-import com.pzz.review.service.ProjectService;
-import com.pzz.review.service.UserService;
+import com.pzz.review.service.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
+
+import java.util.List;
 
 @Controller
 public class AdminController {
@@ -21,7 +27,13 @@ public class AdminController {
     private ProjectService projectService;
 
     @Autowired
+    private AttachmentService attachmentService;
+
+    @Autowired
     private AnnouncementService announcementService;
+
+    @Autowired
+    private ReviewService reviewService;
 
     @GetMapping("/admin")
     public String indexView() {
@@ -50,9 +62,31 @@ public class AdminController {
         return "admin/project/index";
     }
 
+    @GetMapping("/admin/review")
+    public String projectReviewIndexView() {
+        return "admin/project/reviewIndex";
+    }
+
+    @GetMapping("/admin/project/review/{id}")
+    public String projectReview(@PathVariable("id") Integer projectId, Model model) {
+        ProjectDTO project = projectService.getProject(projectId);
+        List<Attachment> attachments = attachmentService.listAttachment(projectId);
+        model.addAttribute("attachments", attachments);
+        model.addAttribute("project", project);
+        return "admin/project/review";
+    }
+
+    @PostMapping("/admin/project/review")
+    public ResponseDTO<String> addReview(@RequestBody ReviewAO reviewAO) {
+        if (projectService.reviewProject(reviewAO)) {
+            return new ResponseDTO<>(0, "Success", null);
+        } else
+            return new ResponseDTO<>(1, "Failed", null);
+    }
+
     @GetMapping("/admin/project/update/{id}")
     public String projectUpdateView(@PathVariable("id") int projectId, Model model) {
-        ProjectDTO project = projectService.getProject(projectId);
+        ProjectDetailDTO project = projectService.getProjectDetail(projectId);
         model.addAttribute("project", project);
         return "admin/project/update";
     }
