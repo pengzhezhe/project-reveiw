@@ -35,6 +35,6 @@ public class ProjectDetailDTO {
         this.createTime = project.getCreateTime();
         this.updateTime = project.getUpdateTime();
         this.opinion = review.getOpinion();
-        this.reviewTime = review.getCreateTime();
+        this.reviewTime = review.getReviewTime();
     }
 }

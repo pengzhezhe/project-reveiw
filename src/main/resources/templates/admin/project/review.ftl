@@ -78,7 +78,7 @@
                 success: function (response) {
                     if (response.code === 0) {
                         layer.msg(response.msg);
-                        // window.location.href = "/admin/review";
+                        window.location.href = "/admin/review";
                     } else
                         layer.msg(response.msg);
                 }

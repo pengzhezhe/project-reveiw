@@ -19,14 +19,12 @@ import org.web3j.protocol.Web3j;
 import org.web3j.protocol.core.DefaultBlockParameterName;
 import org.web3j.protocol.core.methods.request.Transaction;
 import org.web3j.protocol.core.methods.response.EthCall;
-import org.web3j.protocol.core.methods.response.TransactionReceipt;
 import org.web3j.tx.gas.DefaultGasProvider;
 
 import java.math.BigInteger;
 import java.sql.Timestamp;
 import java.util.Arrays;
 import java.util.List;
-import java.util.concurrent.ExecutionException;
 
 @Slf4j
 @Service
@@ -65,7 +63,7 @@ public class ReviewServiceImpl implements ReviewService {
     public Review getReview(BigInteger projectId) {
         Review review = new Review();
         //定义函数
-        Function function = new Function("getReview",
+        Function function = new Function("getResult",
                 //定义函数参数
                 Arrays.asList(new Uint(projectId)),
                 //定义函数返回值
@@ -75,8 +73,6 @@ public class ReviewServiceImpl implements ReviewService {
                         new TypeReference<Uint>() {
                         },
                         new TypeReference<Utf8String>() {
-                        },
-                        new TypeReference<Uint>() {
                         },
                         new TypeReference<Uint>() {
                         }
@@ -91,14 +87,12 @@ public class ReviewServiceImpl implements ReviewService {
             Uint project_id = (Uint) output.get(0);
             Uint status = (Uint) output.get(1);
             Utf8String opinion = (Utf8String) output.get(2);
-            Uint createTime = (Uint) output.get(3);
-            Uint updateTime = (Uint) output.get(4);
+            Uint reviewTime = (Uint) output.get(3);
             review.setProjectId(project_id.getValue().intValue());
             review.setStatus(status.getValue().intValue());
             review.setOpinion(opinion.getValue());
-            review.setCreateTime(new Timestamp(createTime.getValue().longValue() * 1000));
-            review.setUpdateTime(new Timestamp(updateTime.getValue().longValue() * 1000));
-        } catch (InterruptedException | ExecutionException e) {
+            review.setReviewTime(new Timestamp(reviewTime.getValue().longValue() * 1000));
+        } catch (Exception e) {
             e.printStackTrace();
         }
         return review;
@@ -109,31 +103,24 @@ public class ReviewServiceImpl implements ReviewService {
         ReviewContract reviewContract = loadContract(contractAddress);
         try {
             //向区块链发送交易
-            TransactionReceipt transactionReceipt = reviewContract.insertReview(projectId, status, opinion).send();
-            //获取事件返回值
-            List<ReviewContract.ResponseEventResponse> responseEvents = reviewContract.getResponseEvents(transactionReceipt);
-            ReviewContract.ResponseEventResponse response = responseEvents.get(0);
-            log.info(response.code.toString());
-            log.info(response.message);
-            if (responseEvents.get(0).code.equals(BigInteger.ONE))
-                return true;
+            reviewContract.insert(projectId, status, opinion).sendAsync();
+            return true;
         } catch (Exception e) {
             e.printStackTrace();
+            return false;
         }
-        return false;
     }
 
     @Override
     public boolean updateReview(BigInteger projectId, BigInteger status, String opinion) {
         ReviewContract reviewContract = loadContract(contractAddress);
         try {
-            TransactionReceipt transactionReceipt = reviewContract.updateReview(projectId, status, opinion).send();
-            List<ReviewContract.ResponseEventResponse> responseEvents = reviewContract.getResponseEvents(transactionReceipt);
-            if (responseEvents.get(0).code.equals(BigInteger.ONE))
-                return true;
+            reviewContract.insert(projectId, status, opinion).sendAsync();
+            return true;
         } catch (Exception e) {
             e.printStackTrace();
+            return false;
+
         }
-        return false;
     }
 }

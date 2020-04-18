@@ -77,9 +77,9 @@ public class AdminController {
     @ResponseBody
     public ResponseDTO<String> addReview(@RequestBody ReviewAO reviewAO) {
         if (projectService.reviewProject(reviewAO)) {
-            return new ResponseDTO<>(0, "Success", null);
+            return new ResponseDTO<>(0, "评审成功", null);
         } else
-            return new ResponseDTO<>(1, "Failed", null);
+            return new ResponseDTO<>(1, "评审失败", null);
     }
 
     @GetMapping("/admin/project/update/{id}")

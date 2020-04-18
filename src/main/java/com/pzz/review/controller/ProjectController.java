@@ -4,7 +4,6 @@ import com.pzz.review.ao.ProjectAO;
 import com.pzz.review.ao.ProjectAddAO;
 import com.pzz.review.domain.Announcement;
 import com.pzz.review.domain.Attachment;
-import com.pzz.review.domain.Review;
 import com.pzz.review.dto.PageDTO;
 import com.pzz.review.dto.ProjectDTO;
 import com.pzz.review.dto.ProjectDetailDTO;
@@ -16,7 +15,6 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.HttpSession;
-import java.math.BigInteger;
 import java.util.List;
 import java.util.Map;
 
@@ -127,12 +125,5 @@ public class ProjectController {
             return new ResponseDTO<>(0, "删除成功", null);
         else
             return new ResponseDTO<>(1, "删除失败", null);
-    }
-
-    @GetMapping("/api/project/review/detail/{id}")
-    @ResponseBody
-    public ResponseDTO<Review> getProjectReview(@PathVariable("id") int projectId) {
-        Review review = reviewService.getReview(BigInteger.valueOf(projectId));
-        return new ResponseDTO<>(0, "Success", review);
     }
 }

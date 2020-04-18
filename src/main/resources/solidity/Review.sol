@@ -1,40 +1,25 @@
 pragma solidity >=0.4.25 <0.7.0;
 
 contract Review{
-    struct Review{
-        uint project_id;
+    struct Project{
+        uint id;
         uint status;
         string opinion;
-        uint create_time;
-        uint update_time;
+        uint review_time;
     }
 
-    Review[] public reviews;
 
-    mapping(uint => uint) index;
+    mapping(uint => Project) projects;
+
+    function getResult(uint project_id) view public returns(uint,uint,string memory,uint){
+        return (projects[project_id].id,projects[project_id].status,projects[project_id].opinion,projects[project_id].review_time);
+    }
 
     event Response(uint code,string message);
 
-    function getReview(uint project_id) public returns(uint,uint,string memory,uint,uint){
-        require(index[project_id]<reviews.length);
-        return (reviews[index[project_id]].project_id,reviews[index[project_id]].status,reviews[index[project_id]].opinion,reviews[index[project_id]].create_time,reviews[index[project_id]].update_time);
-    }
-
-    function insertReview(uint project_id,uint status,string memory opinion) public{
-        Review memory review= Review(project_id,status,opinion,now,now);
-        reviews.push(review);
-        index[review.project_id]=reviews.length-1;
+    function insert(uint project_id,uint status,string memory opinion) public{
+        projects[project_id]=Project(project_id,status,opinion,now);
         emit Response(1,"Success");
     }
 
-    function updateReview(uint project_id,uint status,string memory opinion) public{
-        if(index[project_id]>=reviews.length)
-            emit Response(0,"No such review");
-        else{
-            reviews[index[project_id]].status=status;
-            reviews[index[project_id]].opinion=opinion;
-            reviews[index[project_id]].update_time=now;
-            emit Response(1,"Success");
-        }
-    }
 }

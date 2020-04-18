@@ -2,7 +2,6 @@ package com.pzz.review.service;
 
 import com.pzz.review.contract.ReviewContract;
 import com.pzz.review.domain.Review;
-import com.pzz.review.service.ReviewService;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -41,14 +40,20 @@ public class ReviewServiceTest {
 
     @Test
     public void getReview() {
-        Review review = reviewService.getReview(BigInteger.ONE);
+        long startTime = System.currentTimeMillis();
+        Review review = reviewService.getReview(BigInteger.valueOf(1));
         System.out.println(review);
+        long endTime = System.currentTimeMillis(); //获取结束时间
+        System.out.println("程序运行时间： " + (endTime - startTime) + "ms");
     }
 
     @Test
     public void insertReview() {
-        boolean b = reviewService.insertReview(BigInteger.ONE, BigInteger.ZERO, "123456");
+        long startTime = System.currentTimeMillis();
+        boolean b = reviewService.insertReview(BigInteger.valueOf(22), BigInteger.ONE, "未通过");
         System.out.println(b);
+        long endTime = System.currentTimeMillis(); //获取结束时间
+        System.out.println("程序运行时间： " + (endTime - startTime) + "ms");
     }
 
     @Test
@@ -61,7 +66,7 @@ public class ReviewServiceTest {
 
     @Test
     public void test() {
-        String str="计算机学院关于2020届本科毕业设计（论文）检测和答辩的通知安排.pdf";
+        String str = "计算机学院关于2020届本科毕业设计（论文）检测和答辩的通知安排.pdf";
         String substring = str.substring(str.lastIndexOf("."));
         System.out.println(substring);
     }

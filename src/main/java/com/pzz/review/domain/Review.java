@@ -12,7 +12,6 @@ public class Review {
 
     private String opinion;
 
-    private Timestamp createTime;
+    private Timestamp reviewTime;
 
-    private Timestamp updateTime;
 }
