@@ -105,6 +105,9 @@ public class ReviewServiceImpl implements ReviewService {
         try {
             TransactionReceipt transactionReceipt = reviewContract.insertReview(projectId, status, opinion).send();
             List<ReviewContract.ResponseEventResponse> responseEvents = reviewContract.getResponseEvents(transactionReceipt);
+            ReviewContract.ResponseEventResponse response = responseEvents.get(0);
+            log.info(response.code.toString());
+            log.info(response.message);
             if (responseEvents.get(0).code.equals(BigInteger.ONE))
                 return true;
         } catch (Exception e) {

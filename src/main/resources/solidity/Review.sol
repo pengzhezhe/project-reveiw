@@ -21,8 +21,6 @@ contract Review{
     }
 
     function insertReview(uint project_id,uint status,string memory opinion) public{
-        if(index[project_id]<reviews.length)
-            emit Response(0,"Have been existed");
         Review memory review= Review(project_id,status,opinion,now,now);
         reviews.push(review);
         index[review.project_id]=reviews.length-1;

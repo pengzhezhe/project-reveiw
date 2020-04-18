@@ -11,10 +11,7 @@ import com.pzz.review.service.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
@@ -77,6 +74,7 @@ public class AdminController {
     }
 
     @PostMapping("/admin/project/review")
+    @ResponseBody
     public ResponseDTO<String> addReview(@RequestBody ReviewAO reviewAO) {
         if (projectService.reviewProject(reviewAO)) {
             return new ResponseDTO<>(0, "Success", null);

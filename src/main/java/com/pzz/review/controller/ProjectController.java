@@ -4,20 +4,19 @@ import com.pzz.review.ao.ProjectAO;
 import com.pzz.review.ao.ProjectAddAO;
 import com.pzz.review.domain.Announcement;
 import com.pzz.review.domain.Attachment;
+import com.pzz.review.domain.Review;
 import com.pzz.review.dto.PageDTO;
 import com.pzz.review.dto.ProjectDTO;
 import com.pzz.review.dto.ProjectDetailDTO;
 import com.pzz.review.dto.ResponseDTO;
-import com.pzz.review.service.AnnouncementService;
-import com.pzz.review.service.AttachmentService;
-import com.pzz.review.service.ProjectService;
-import com.pzz.review.service.UserService;
+import com.pzz.review.service.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.HttpSession;
+import java.math.BigInteger;
 import java.util.List;
 import java.util.Map;
 
@@ -34,6 +33,9 @@ public class ProjectController {
 
     @Autowired
     private AttachmentService attachmentService;
+
+    @Autowired
+    private ReviewService reviewService;
 
     /**
      * 添加项目页面
@@ -125,5 +127,12 @@ public class ProjectController {
             return new ResponseDTO<>(0, "删除成功", null);
         else
             return new ResponseDTO<>(1, "删除失败", null);
+    }
+
+    @GetMapping("/api/project/review/detail/{id}")
+    @ResponseBody
+    public ResponseDTO<Review> getProjectReview(@PathVariable("id") int projectId) {
+        Review review = reviewService.getReview(BigInteger.valueOf(projectId));
+        return new ResponseDTO<>(0, "Success", review);
     }
 }
