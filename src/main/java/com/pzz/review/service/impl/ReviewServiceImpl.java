@@ -64,10 +64,14 @@ public class ReviewServiceImpl implements ReviewService {
     @Override
     public Review getReview(BigInteger projectId) {
         Review review = new Review();
+        //定义函数
         Function function = new Function("getReview",
+                //定义函数参数
                 Arrays.asList(new Uint(projectId)),
-                Arrays.asList(new TypeReference<Uint>() {
-                              },
+                //定义函数返回值
+                Arrays.asList(
+                        new TypeReference<Uint>() {
+                        },
                         new TypeReference<Uint>() {
                         },
                         new TypeReference<Utf8String>() {
@@ -80,15 +84,16 @@ public class ReviewServiceImpl implements ReviewService {
         );
         String encodedFunction = FunctionEncoder.encode(function);
         try {
+            //调用函数
             EthCall response = web3j.ethCall(Transaction.createEthCallTransaction(address, contractAddress, encodedFunction), DefaultBlockParameterName.LATEST).sendAsync().get();
+            //获取返回值
             List<Type> output = FunctionReturnDecoder.decode(response.getValue(), function.getOutputParameters());
-            Type<BigInteger> project_Id = output.get(0);
-            Type<BigInteger> status = output.get(1);
-            Type<String> opinion = output.get(2);
-            Type<BigInteger> createTime = output.get(3);
-            Type<BigInteger> updateTime = output.get(4);
-            log.info(createTime.getValue().toString());
-            review.setProjectId(project_Id.getValue().intValue());
+            Uint project_id = (Uint) output.get(0);
+            Uint status = (Uint) output.get(1);
+            Utf8String opinion = (Utf8String) output.get(2);
+            Uint createTime = (Uint) output.get(3);
+            Uint updateTime = (Uint) output.get(4);
+            review.setProjectId(project_id.getValue().intValue());
             review.setStatus(status.getValue().intValue());
             review.setOpinion(opinion.getValue());
             review.setCreateTime(new Timestamp(createTime.getValue().longValue() * 1000));
@@ -103,7 +108,9 @@ public class ReviewServiceImpl implements ReviewService {
     public boolean insertReview(BigInteger projectId, BigInteger status, String opinion) {
         ReviewContract reviewContract = loadContract(contractAddress);
         try {
+            //向区块链发送交易
             TransactionReceipt transactionReceipt = reviewContract.insertReview(projectId, status, opinion).send();
+            //获取事件返回值
             List<ReviewContract.ResponseEventResponse> responseEvents = reviewContract.getResponseEvents(transactionReceipt);
             ReviewContract.ResponseEventResponse response = responseEvents.get(0);
             log.info(response.code.toString());
