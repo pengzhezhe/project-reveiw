@@ -39,23 +39,21 @@
                     </div>
                 </div>
             </div>
-
-            <div class="fly-panel" style="padding: 5px 15px;">
-                <fieldset class="layui-elem-field layui-field-title">
-                    <legend style="text-align: center">评审意见</legend>
-                    <#if project.status!=0>
-                        <div class="layui-field-box">
-                            <blockquote class="layui-elem-quote">
-                                <p>${project.opinion}</p>
-                            </blockquote>
+            <#if project.status!=0>
+                <div class="fly-panel" style="padding: 5px 15px;">
+                    <fieldset class="layui-elem-field layui-field-title">
+                        <legend style="text-align: center">评审意见</legend>
+                    </fieldset>
+                    <div class="layui-field-box">
+                        <blockquote class="layui-elem-quote">
+                            <p>${project.opinion}</p>
                             <div class="fly-list-info" style="padding-top: 10px;font-size: smaller;">
-                                <cite style="color: #1E9FFF;">管理员</cite>
                                 <span class="detail-hits">${project.reviewTime?string("yyyy-MM-dd HH:mm:ss")}</span>
                             </div>
-                        </div>
-                    </#if>
-                </fieldset>
-            </div>
+                        </blockquote>
+                    </div>
+                </div>
+            </#if>
         </div>
         <#include "/common/announcement.ftl">
     </div>

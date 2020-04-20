@@ -19,7 +19,6 @@
 
         table.render({
             elem: '#announcement_table',
-            height: 500,
             url: '/api/announcement',
             page: true,
             toolbar: true,

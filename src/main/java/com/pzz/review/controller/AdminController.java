@@ -3,16 +3,14 @@ package com.pzz.review.controller;
 import com.pzz.review.ao.ReviewAO;
 import com.pzz.review.domain.Announcement;
 import com.pzz.review.domain.Attachment;
-import com.pzz.review.dto.ProjectDTO;
-import com.pzz.review.dto.ProjectDetailDTO;
-import com.pzz.review.dto.ResponseDTO;
-import com.pzz.review.dto.UserDTO;
+import com.pzz.review.dto.*;
 import com.pzz.review.service.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
+import javax.servlet.http.HttpSession;
 import java.util.List;
 
 @Controller
@@ -35,6 +33,26 @@ public class AdminController {
     @GetMapping("/admin")
     public String indexView() {
         return "admin/index";
+    }
+
+    @GetMapping("/admin/update")
+    public String updateView(HttpSession httpSession, Model model) {
+        String username = (String) httpSession.getAttribute("username");
+        UserDTO user = userService.getUserByUsername(username);
+        model.addAttribute("user", user);
+        return "admin/update";
+    }
+
+    @GetMapping("/admin/list")
+    @ResponseBody
+    public ResponseDTO<PageDTO<UserDTO>> listAdmin(@RequestParam(defaultValue = "1", name = "page") int pageNum, @RequestParam(defaultValue = "10", name = "limit") int pageSize) {
+        PageDTO<UserDTO> userDTOPageDTO = userService.listUsers(1, pageNum, pageSize);
+        return new ResponseDTO<>(0, "Success", userDTOPageDTO);
+    }
+
+    @GetMapping("/admin/index")
+    public String adminIndexView() {
+        return "admin/admin/index";
     }
 
     @GetMapping("/admin/user")
@@ -64,6 +82,13 @@ public class AdminController {
         return "admin/project/reviewIndex";
     }
 
+    @GetMapping("/admin/project/update/{id}")
+    public String projectUpdateView(@PathVariable("id") int projectId, Model model) {
+        ProjectDetailDTO project = projectService.getProjectDetail(projectId);
+        model.addAttribute("project", project);
+        return "admin/project/update";
+    }
+
     @GetMapping("/admin/project/review/{id}")
     public String projectReview(@PathVariable("id") Integer projectId, Model model) {
         ProjectDTO project = projectService.getProject(projectId);
@@ -80,13 +105,6 @@ public class AdminController {
             return new ResponseDTO<>(0, "评审成功", null);
         } else
             return new ResponseDTO<>(1, "评审失败", null);
-    }
-
-    @GetMapping("/admin/project/update/{id}")
-    public String projectUpdateView(@PathVariable("id") int projectId, Model model) {
-        ProjectDetailDTO project = projectService.getProjectDetail(projectId);
-        model.addAttribute("project", project);
-        return "admin/project/update";
     }
 
     @GetMapping("/admin/announcement")

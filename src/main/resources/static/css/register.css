@@ -56,7 +56,7 @@ input:-webkit-autofill {
     margin-bottom: 5px;
     -webkit-transition-property: none;
     transition-property: none;
-    background: #ececec;
+    /*background: #ececec;*/
     border: 1px solid #ececec;
 }
 

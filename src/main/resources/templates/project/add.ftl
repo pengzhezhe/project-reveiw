@@ -115,8 +115,9 @@
 
         form.on('submit(formDemo)', function (data) {
             data.field.introduction = layedit.getContent(introduction);
+            data.field.username = "${Session.username}";
             $.ajax({
-                url: "/project/add",
+                url: "/api/project",
                 method: "POST",
                 contentType: "application/json",
                 dataType: "json",

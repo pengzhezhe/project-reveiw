@@ -19,7 +19,6 @@
 
         table.render({
             elem: '#project_table',
-            height: 500,
             url: '/api/project?type=0',
             page: true,
             toolbar: true,

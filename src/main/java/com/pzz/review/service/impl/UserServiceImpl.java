@@ -29,7 +29,6 @@ public class UserServiceImpl implements UserService {
             throw new AppException("用户名已存在");
         User user = new User();
         BeanUtils.copyProperties(userAddAO, user);
-        user.setUserType(0);
         return userMapper.insert(user) > 0;
     }
 
@@ -83,13 +82,13 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
-    public boolean login(String username, String password) {
+    public int login(String username, String password) {
         User user = userMapper.getUserByUsername(username);
         if (user == null)
             throw new AppException("用户名不存在");
         if (!password.equals(user.getPassword()))
             throw new AppException("用户名或密码错误");
-        return true;
+        return user.getUserType();
     }
 
     @Override

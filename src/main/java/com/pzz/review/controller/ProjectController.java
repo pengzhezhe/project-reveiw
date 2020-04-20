@@ -16,7 +16,6 @@ import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.HttpSession;
 import java.util.List;
-import java.util.Map;
 
 @Controller
 public class ProjectController {
@@ -87,17 +86,6 @@ public class ProjectController {
         return "project/index";
     }
 
-    @PostMapping("/project/add")
-    @ResponseBody
-    public ResponseDTO<Integer> addProject(@RequestBody Map<String, String> map, HttpSession httpSession) {
-        String name = map.get("name");
-        String introduction = map.get("introduction");
-        String username = (String) httpSession.getAttribute("username");
-        ProjectAddAO projectAddAO = new ProjectAddAO(name, introduction, username);
-        int projectId = projectService.addProject(projectAddAO);
-        return new ResponseDTO<>(0, "添加成功", projectId);
-    }
-
     @GetMapping("/api/project")
     @ResponseBody
     public ResponseDTO<PageDTO<ProjectDTO>> listProject(@RequestParam(defaultValue = "-1", name = "type") int type, @RequestParam(defaultValue = "1", name = "page") int pageNum, @RequestParam(defaultValue = "10", name = "limit") int pageSize) {
@@ -107,6 +95,13 @@ public class ProjectController {
         else
             pageDTO = projectService.listProjects(pageNum, pageSize);
         return new ResponseDTO<>(0, "Success", pageDTO);
+    }
+
+    @PostMapping("/api/project")
+    @ResponseBody
+    public ResponseDTO<Integer> addProject(@RequestBody ProjectAddAO projectAddAO) {
+        int projectId = projectService.addProject(projectAddAO);
+        return new ResponseDTO<>(0, "添加成功", projectId);
     }
 
     @PutMapping("/api/project")

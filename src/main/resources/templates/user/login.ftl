@@ -26,7 +26,7 @@
                         <button class="layui-btn layui-btn-normal" lay-submit lay-filter="login">登录</button>
                     </div>
                     <div class="layui-inline">
-                        <button type="reset" class="layui-btn layui-btn-primary">清空</button>
+                        <button type="button" id="register" class="layui-btn layui-btn-primary">注册</button>
                     </div>
                 </div>
             </form>
@@ -49,17 +49,23 @@
                 data: JSON.stringify(data.field),
                 success: function (response) {
                     console.log(response);
-                    if (response.code === 0){
-                        layer.msg(response.msg);
-                        window.location.href = "/project";
-                    }
-                    else
+                    if (response.code === 0) {
+                        layer.msg(response.msg, {time: 1000}, function () {
+                            if (response.data === 1)
+                                window.location.href = "/admin";
+                            else
+                                window.location.href = "/project";
+                        });
+                    } else
                         layer.msg(response.msg);
                 }
             });
             return false;
         });
 
+        $('#register').click(function () {
+            window.location.href = "/register";
+        })
     });
 </script>
 </body>

@@ -105,7 +105,7 @@
                 dataType: "json",
                 data: JSON.stringify(data.field),
                 success: function (response) {
-                    layer.msg(response.msg, function () {
+                    layer.msg(response.msg, {time: 1000}, function () {
                         window.location.reload();
                     });
                 }
@@ -121,7 +121,7 @@
                 dataType: "json",
                 data: JSON.stringify(data.field),
                 success: function (response) {
-                    layer.msg(response.msg, function () {
+                    layer.msg(response.msg, {time: 1000}, function () {
                         window.location.reload();
                     });
                 }

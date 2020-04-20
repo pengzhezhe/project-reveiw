@@ -3,7 +3,7 @@ package com.pzz.review.ao;
 import lombok.Data;
 
 @Data
-public class UserAddAO {
+public class RegisterAO {
     private String username;
 
     private String password;
@@ -13,6 +13,4 @@ public class UserAddAO {
     private String name;
 
     private Integer sex;
-
-    private Integer userType;
 }

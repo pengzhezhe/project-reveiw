@@ -67,9 +67,9 @@ public interface UserService {
      *
      * @param username 用户名
      * @param password 密码
-     * @return boolean
+     * @return userType
      */
-    boolean login(String username, String password);
+    int login(String username, String password);
 
     /**
      * 修改密码
