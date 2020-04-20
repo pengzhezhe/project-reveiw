@@ -20,6 +20,8 @@ public interface UserMapper {
 
     User getUser(Integer id);
 
-    List<User> listUsers(Integer userType);
+    List<User> listUsers();
+
+    List<User> listUsersByUserType(Integer userType);
 
 }

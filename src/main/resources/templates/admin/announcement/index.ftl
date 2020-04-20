@@ -64,7 +64,7 @@
                     type: 2,
                     anim: 0,
                     skin: 'layui-layer-molv',
-                    area: ['50%', '70%'],
+                    area: ['50%', '80%'],
                     content: '/admin/announcement/update/' + data.id,
                     end: function () {
                         table.reload('announcement_table');

@@ -43,18 +43,6 @@ public class AdminController {
         return "admin/update";
     }
 
-    @GetMapping("/admin/list")
-    @ResponseBody
-    public ResponseDTO<PageDTO<UserDTO>> listAdmin(@RequestParam(defaultValue = "1", name = "page") int pageNum, @RequestParam(defaultValue = "10", name = "limit") int pageSize) {
-        PageDTO<UserDTO> userDTOPageDTO = userService.listUsers(1, pageNum, pageSize);
-        return new ResponseDTO<>(0, "Success", userDTOPageDTO);
-    }
-
-    @GetMapping("/admin/index")
-    public String adminIndexView() {
-        return "admin/admin/index";
-    }
-
     @GetMapping("/admin/user")
     public String userView() {
         return "admin/user/index";
@@ -84,7 +72,7 @@ public class AdminController {
 
     @GetMapping("/admin/project/update/{id}")
     public String projectUpdateView(@PathVariable("id") int projectId, Model model) {
-        ProjectDetailDTO project = projectService.getProjectDetail(projectId);
+        ProjectDTO project = projectService.getProject(projectId);
         model.addAttribute("project", project);
         return "admin/project/update";
     }

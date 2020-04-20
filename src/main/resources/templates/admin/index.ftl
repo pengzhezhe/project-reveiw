@@ -46,7 +46,6 @@
                     <dl class="layui-nav-child">
                         <dd><a href="/admin/user/add" target="content_frame">添加用户</a></dd>
                         <dd><a href="/admin/user" target="content_frame">用户列表</a></dd>
-                        <dd><a href="/admin/index" target="content_frame">管理员列表</a></dd>
                     </dl>
                 </li>
                 <li class="layui-nav-item layui-nav-itemed">

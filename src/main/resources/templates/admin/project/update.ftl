@@ -51,8 +51,7 @@
 
         form.val("basic", {
             "id": "${project.id}",
-            "name": "${project.name}",
-            "introduction": "${project.introduction}"
+            "name": "${project.name}"
         });
         layedit.setContent(introduction, "${project.introduction}");
 

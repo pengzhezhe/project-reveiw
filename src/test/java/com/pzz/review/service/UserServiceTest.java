@@ -49,7 +49,7 @@ public class UserServiceTest {
     @Test
     public void listUsers() {
         PageHelper.startPage(1, 10);
-        List<User> users = userMapper.listUsers(0);
+        List<User> users = userMapper.listUsersByUserType(0);
         PageInfo pageInfo = new PageInfo(users);
         System.out.println(pageInfo);
         List<UserDTO> userDTOS = new ArrayList<>();

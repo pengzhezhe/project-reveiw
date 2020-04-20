@@ -50,8 +50,7 @@
 
         form.val("basic", {
             "id": "${announcement.id}",
-            "title": "${announcement.title}",
-            "content": "${announcement.content}",
+            "title": "${announcement.title}"
         });
 
         layedit.setContent(content, "${announcement.content}");

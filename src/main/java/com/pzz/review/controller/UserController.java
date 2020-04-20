@@ -80,7 +80,7 @@ public class UserController {
     @GetMapping("/user")
     @ResponseBody
     public ResponseDTO<PageDTO<UserDTO>> listUsers(@RequestParam(defaultValue = "1", name = "page") int pageNum, @RequestParam(defaultValue = "10", name = "limit") int pageSize) {
-        PageDTO<UserDTO> pageDTO = userService.listUsers(0, pageNum, pageSize);
+        PageDTO<UserDTO> pageDTO = userService.listUsers(pageNum, pageSize);
         return new ResponseDTO<>(0, "Success", pageDTO);
     }
 

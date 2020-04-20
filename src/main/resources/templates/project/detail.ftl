@@ -54,7 +54,7 @@
                         </div>
                     </blockquote>
                 </div>
-            <#else>
+            <#elseif project.status==1 && project.reviewStatus==0>
                 <div class="fly-panel" style="padding: 5px 15px;">
                     <fieldset class="layui-elem-field layui-field-title">
                         <legend style="text-align: center">评审结果</legend>

@@ -44,6 +44,14 @@
                 },
                 {field: 'email', title: '邮箱'},
                 {
+                    field: 'userType', title: '用户类型', templet: function (data) {
+                        if (data.userType === 1)
+                            return "管理员";
+                        else
+                            return "普通用户";
+                    }
+                },
+                {
                     field: 'createTime', title: '注册时间', sort: true, templet: function (data) {
                         var date = new Date(data.createTime);
                         var Y = date.getFullYear() + '-';

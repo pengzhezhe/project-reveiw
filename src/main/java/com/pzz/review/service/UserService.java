@@ -46,6 +46,9 @@ public interface UserService {
      */
     PageDTO<UserDTO> listUsers(Integer userType, Integer pageNum, Integer pageSize);
 
+
+    PageDTO<UserDTO> listUsers(Integer pageNum, Integer pageSize);
+
     /**
      * 通过用户名查找用户
      *

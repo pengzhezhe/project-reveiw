@@ -74,6 +74,19 @@
                create_time,
                update_time
         from user
+    </select>
+
+    <select id="listUsersByUserType" resultMap="UserMap">
+        select id,
+               username,
+               password,
+               name,
+               sex,
+               email,
+               user_type,
+               create_time,
+               update_time
+        from user
         where user_type = #{userType,jdbcType=INTEGER}
     </select>
 

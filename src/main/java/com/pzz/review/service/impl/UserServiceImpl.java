@@ -59,7 +59,17 @@ public class UserServiceImpl implements UserService {
     @Override
     public PageDTO<UserDTO> listUsers(Integer userType, Integer pageNum, Integer pageSize) {
         PageHelper.startPage(pageNum, pageSize);
-        List<User> users = userMapper.listUsers(userType);
+        List<User> users = userMapper.listUsersByUserType(userType);
+        PageInfo pageInfo = new PageInfo(users);
+        List<UserDTO> userDTOS = new ArrayList<>();
+        CommonUtils.copyListProperties(users, userDTOS, UserDTO.class);
+        return new PageDTO<>(userDTOS, pageInfo.getTotal());
+    }
+
+    @Override
+    public PageDTO<UserDTO> listUsers(Integer pageNum, Integer pageSize) {
+        PageHelper.startPage(pageNum, pageSize);
+        List<User> users = userMapper.listUsers();
         PageInfo pageInfo = new PageInfo(users);
         List<UserDTO> userDTOS = new ArrayList<>();
         CommonUtils.copyListProperties(users, userDTOS, UserDTO.class);
