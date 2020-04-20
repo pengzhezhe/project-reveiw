@@ -67,18 +67,9 @@ pre {
     height: 18px;
     line-height: 18px;
     padding: 0 5px !important;
-    background-color: #5FB878;
+    background-color: #1E9FFF;
     border-radius: 2px;
 }
-
-.fly-badge-unaccept {
-    height: 18px;
-    line-height: 18px;
-    padding: 0 5px !important;
-    background-color: #999;
-    border-radius: 2px;
-}
-
 
 /* 头部 */
 .fly-header {

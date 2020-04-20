@@ -36,9 +36,7 @@
                                                 </a>
                                                 <span>${project.createTime?string("yyyy-MM-dd HH:mm:ss")}</span>
                                                 <#if project.status==1>
-                                                    <span class="layui-badge fly-badge-unaccept layui-hide-xs">未通过</span>
-                                                <#elseif project.status==2>
-                                                    <span class="layui-badge fly-badge-accept layui-hide-xs">通过</span>
+                                                    <span class="layui-badge fly-badge-accept layui-hide-xs">已评审</span>
                                                 <#else>
                                                     <span class="layui-badge fly-badge-default layui-hide-xs">审核中</span>
                                                 </#if>
@@ -65,9 +63,7 @@
                                                 </a>
                                                 <span>${project.createTime?string("yyyy-MM-dd HH:mm:ss")}</span>
                                                 <#if project.status==1>
-                                                    <span class="layui-badge fly-badge-unaccept layui-hide-xs">未通过</span>
-                                                <#elseif project.status==2>
-                                                    <span class="layui-badge fly-badge-accept layui-hide-xs">通过</span>
+                                                    <span class="layui-badge fly-badge-accept layui-hide-xs">已评审</span>
                                                 <#else>
                                                     <span class="layui-badge fly-badge-default layui-hide-xs">审核中</span>
                                                 </#if>
@@ -94,9 +90,7 @@
                                                 </a>
                                                 <span>${project.createTime?string("yyyy-MM-dd HH:mm:ss")}</span>
                                                 <#if project.status==1>
-                                                    <span class="layui-badge fly-badge-unaccept layui-hide-xs">未通过</span>
-                                                <#elseif project.status==2>
-                                                    <span class="layui-badge fly-badge-accept layui-hide-xs">通过</span>
+                                                    <span class="layui-badge fly-badge-accept layui-hide-xs">已评审</span>
                                                 <#else>
                                                     <span class="layui-badge fly-badge-default layui-hide-xs">审核中</span>
                                                 </#if>

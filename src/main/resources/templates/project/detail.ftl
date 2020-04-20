@@ -18,11 +18,9 @@
                 <h1>${project.name}</h1>
                 <div class="fly-detail-info">
                     <#if project.status==1>
-                        <span class="layui-badge" style="background-color: #999;">未通过</span>
-                    <#elseif project.status==2>
-                        <span class="layui-badge" style="background-color: #5FB878;">通过</span>
+                        <span class="layui-badge layui-bg-blue">已评审</span>
                     <#else>
-                        <span class="layui-badge" style="background-color: #FF5722;">审核中</span>
+                        <span class="layui-badge">审核中</span>
                     </#if>
                     <span style="font-size: small;color:#999;padding-left: 15px;">${project.createTime?string("yyyy-MM-dd HH:mm:ss")}</span>
                 </div>
@@ -39,19 +37,31 @@
                     </div>
                 </div>
             </div>
-            <#if project.status!=0>
+            <#if project.reviewStatus!=0>
                 <div class="fly-panel" style="padding: 5px 15px;">
                     <fieldset class="layui-elem-field layui-field-title">
-                        <legend style="text-align: center">评审意见</legend>
+                        <legend style="text-align: center">评审结果</legend>
                     </fieldset>
-                    <div class="layui-field-box">
-                        <blockquote class="layui-elem-quote">
-                            <p>${project.opinion}</p>
-                            <div class="fly-list-info" style="padding-top: 10px;font-size: smaller;">
-                                <span class="detail-hits">${project.reviewTime?string("yyyy-MM-dd HH:mm:ss")}</span>
-                            </div>
-                        </blockquote>
-                    </div>
+                    <blockquote class="layui-elem-quote">
+                        <p>${project.opinion}</p>
+                        <div class="fly-list-info" style="padding-top: 10px;font-size: smaller;">
+                            <#if project.reviewStatus==1>
+                                <span style="padding-right: 6px;" class="layui-badge layui-bg-black">未通过</span>
+                            <#elseif project.reviewStatus==2>
+                                <span style="padding-right: 6px;" class="layui-badge layui-bg-green">通过</span>
+                            </#if>
+                            <span class="detail-hits">${project.reviewTime?string("yyyy-MM-dd HH:mm:ss")}</span>
+                        </div>
+                    </blockquote>
+                </div>
+            <#else>
+                <div class="fly-panel" style="padding: 5px 15px;">
+                    <fieldset class="layui-elem-field layui-field-title">
+                        <legend style="text-align: center">评审结果</legend>
+                    </fieldset>
+                    <blockquote style="margin-top: 10px" class="layui-elem-quote">
+                        评审结果正在处理中，请耐心等待！
+                    </blockquote>
                 </div>
             </#if>
         </div>

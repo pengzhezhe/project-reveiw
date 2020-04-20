@@ -54,7 +54,8 @@ public class AnnouncementServiceImpl implements AnnouncementService {
 
     @Override
     public List<Announcement> listNewAnnouncements() {
-        return announcementMapper.listNewAnnouncements();
+        PageHelper.startPage(1, 8);
+        return announcementMapper.listAnnouncements();
     }
 
     @Override

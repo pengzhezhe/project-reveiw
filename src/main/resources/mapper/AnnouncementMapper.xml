@@ -38,10 +38,4 @@
         from announcement
         order by create_time desc
     </select>
-    <select id="listNewAnnouncements" resultMap="BaseResultMap">
-        select id, title, content, create_time, update_time
-        from announcement
-        order by create_time desc
-        limit 8
-    </select>
 </mapper>

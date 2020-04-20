@@ -45,9 +45,7 @@
                         if (data.status === 0)
                             return "审核中";
                         else if (data.status === 1)
-                            return "未通过";
-                        else if (data.status === 2)
-                            return "通过";
+                            return "已审核";
                     }
                 },
                 {

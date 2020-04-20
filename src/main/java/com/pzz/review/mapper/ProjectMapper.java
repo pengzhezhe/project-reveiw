@@ -21,8 +21,6 @@ public interface ProjectMapper {
 
     List<Project> listProjectsByUserId(Integer userId);
 
-    List<Project> listCheckedProjectsByUserId(Integer userId);
-
     List<Project> listProjectsByStatus(Integer status);
 
     List<Project> listProjectsByUserIdAndStatus(Integer userId, Integer status);

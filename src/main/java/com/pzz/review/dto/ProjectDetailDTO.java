@@ -18,6 +18,8 @@ public class ProjectDetailDTO {
 
     private Integer status;
 
+    private Integer reviewStatus;
+
     private String opinion;
 
     private Timestamp createTime;
@@ -34,6 +36,7 @@ public class ProjectDetailDTO {
         this.status = project.getStatus();
         this.createTime = project.getCreateTime();
         this.updateTime = project.getUpdateTime();
+        this.reviewStatus = review.getStatus();
         this.opinion = review.getOpinion();
         this.reviewTime = review.getReviewTime();
     }

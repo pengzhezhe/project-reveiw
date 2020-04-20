@@ -62,21 +62,6 @@
         order by create_time desc
     </select>
 
-    <select id="listCheckedProjectsByUserId" resultMap="ProjectMap">
-        select id,
-               name,
-               introduction,
-               user_name,
-               user_id,
-               status,
-               create_time,
-               update_time
-        from project
-        where user_id = #{userId,jdbcType=INTEGER}
-          and (status = 1 or status = 2)
-        order by create_time desc
-    </select>
-
     <select id="listProjects" resultMap="ProjectMap">
         select id,
                name,

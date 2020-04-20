@@ -41,7 +41,7 @@ public class ReviewServiceTest {
     @Test
     public void getReview() {
         long startTime = System.currentTimeMillis();
-        Review review = reviewService.getReview(BigInteger.valueOf(1));
+        Review review = reviewService.getReview(BigInteger.valueOf(100));
         System.out.println(review);
         long endTime = System.currentTimeMillis(); //获取结束时间
         System.out.println("程序运行时间： " + (endTime - startTime) + "ms");

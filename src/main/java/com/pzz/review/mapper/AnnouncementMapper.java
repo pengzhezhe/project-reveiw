@@ -19,6 +19,4 @@ public interface AnnouncementMapper {
 
     List<Announcement> listAnnouncements();
 
-    List<Announcement> listNewAnnouncements();
-
 }

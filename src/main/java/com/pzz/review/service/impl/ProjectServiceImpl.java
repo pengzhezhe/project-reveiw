@@ -83,7 +83,7 @@ public class ProjectServiceImpl implements ProjectService {
     @Override
     public boolean reviewProject(ReviewAO reviewAO) {
         Project project = projectMapper.getProject(reviewAO.getProjectId());
-        project.setStatus(reviewAO.getStatus());
+        project.setStatus(1);
         projectMapper.update(project);
         return reviewService.insertReview(BigInteger.valueOf(reviewAO.getProjectId()), BigInteger.valueOf(reviewAO.getStatus()), reviewAO.getOpinion());
     }
@@ -117,7 +117,7 @@ public class ProjectServiceImpl implements ProjectService {
         if (type == 1) {
             projects = projectMapper.listProjectsByUserIdAndStatus(userId, 0);
         } else if (type == 2)
-            projects = projectMapper.listCheckedProjectsByUserId(userId);
+            projects = projectMapper.listProjectsByUserIdAndStatus(userId, 1);
         else
             projects = projectMapper.listProjectsByUserId(userId);
         PageInfo pageInfo = new PageInfo(projects);
