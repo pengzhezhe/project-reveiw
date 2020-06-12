@@ -1,4 +1,7 @@
+基于以太坊区块链和Spring Boot构建的项目评审系统。
+
 ## 运行环境
+
 操作系统：Windows10 
 
 Java：JDK11
