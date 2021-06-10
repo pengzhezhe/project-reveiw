@@ -61,7 +61,7 @@ public class AttachmentController {
         HttpHeaders headers = new HttpHeaders();
         String fileName = attachment.getOriginalName();
         headers.add("Cache-Control", "no-cache, no-store, must-revalidate");
-        headers.add("Content-Disposition", "attachment; fileName=" + fileName + ";filename*=utf-8''" + URLEncoder.encode(fileName, StandardCharsets.UTF_8));
+        headers.add("Content-Disposition", "attachment; fileName=" + fileName + ";filename*=utf-8''" + URLEncoder.encode(fileName, "UTF-8"));
         headers.add("Pragma", "no-cache");
         headers.add("Expires", "0");
         return ResponseEntity
