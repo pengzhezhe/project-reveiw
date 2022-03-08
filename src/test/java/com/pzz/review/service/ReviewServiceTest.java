@@ -2,18 +2,15 @@ package com.pzz.review.service;
 
 import com.pzz.review.contract.ReviewContract;
 import com.pzz.review.domain.Review;
-import org.junit.Test;
-import org.junit.runner.RunWith;
+import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.boot.test.context.SpringBootTest;
-import org.springframework.test.context.junit4.SpringRunner;
 
 import java.io.IOException;
 import java.math.BigInteger;
 
 @SpringBootTest
-@RunWith(SpringRunner.class)
 public class ReviewServiceTest {
 
     @Autowired

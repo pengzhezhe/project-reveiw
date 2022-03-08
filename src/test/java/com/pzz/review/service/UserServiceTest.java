@@ -5,18 +5,15 @@ import com.github.pagehelper.PageInfo;
 import com.pzz.review.domain.User;
 import com.pzz.review.dto.UserDTO;
 import com.pzz.review.mapper.UserMapper;
-import org.junit.Test;
-import org.junit.runner.RunWith;
+import org.junit.jupiter.api.Test;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
-import org.springframework.test.context.junit4.SpringRunner;
 
 import java.util.ArrayList;
 import java.util.List;
 
 @SpringBootTest
-@RunWith(SpringRunner.class)
 public class UserServiceTest {
     @Autowired
     private UserService userService;
